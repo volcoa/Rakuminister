@@ -1,0 +1,16 @@
+New log file opened at Fri Jan 15 22:45:54 CET 2016 by 12420@PB-PC
+Taking next connection to: 57070
+New client attempting to connect on port: 57071-57070
+  Address = /192.168.0.16:57070
+This client on port 57071 has uuid 45bb0337-cb09-4405-84a2-aa694224bb9a configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-45bb0337-cb09-4405-84a2-aa694224bb9a
+Taking next connection to: 57070
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 57070
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 57070
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 57070
