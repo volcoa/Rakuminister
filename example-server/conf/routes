@@ -7,6 +7,7 @@ GET           /                            controllers.Marketplace.index
 
 
 GET           /home                        controllers.Application.index
+GET           /s/:keyword                  controllers.Marketplace.search(keyword: String)
 
 GET           /todos                       controllers.TodoController.index
 GET           /todos/all                   controllers.TodoController.all
