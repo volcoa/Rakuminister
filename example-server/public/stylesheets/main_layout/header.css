@@ -1,0 +1,124 @@
+
+
+/*
+* Layout Header
+*/
+#navbar-wrapper {
+    padding-bottom:0;
+    margin-bottom:0;
+    border:0;
+    box-shadow:none;
+    background-color:#bf0000;
+}
+    /* Partie blanche du header : logo */
+    #logo-nav-bar {
+        height:70px;
+        margin-top:0;
+        padding-top:0;
+        background:white;
+    }
+        #logo-nav-bar .navbar-brand
+        , #logo-nav-bar .navbar-brand amp-img{
+            margin-top:0;
+            padding-top:10px;
+        }
+
+    /* Partie rouge du header : recherche et liens */
+    #real-nav-bar {
+        background-color:#bf0000;
+        height:44px;
+        padding-top:0;
+        padding-bottom:0;
+        margin-bottom:0;
+    }
+        #real-nav-bar > div.navbar-header {
+            padding-left:15px;
+            padding-right:15px;
+        }
+            #main-navbar-collapse-wrapper {
+                background-color:#bf0000;
+            }
+                #main-navbar-collapse-wrapper {
+                }
+                    #main-navbar-collapse-wrapper .navbar-nav {
+                        display:inline;
+                        height:44px;
+                    }
+
+                        /* Bouton toogle (en vue mobile) */
+                        #toogle-main-nav-button {
+                            background-color:#e8e8e8;
+                            margin:0;
+                            margin-bottom:6px;
+                        }
+                        #toogle-main-nav-button:hover {
+                            color:#bbb;
+                        }
+
+                        /* Recherche */
+                        #main-search-caterogy-wrapper {
+                            padding-right:14px;
+                            padding-left:14px;
+                        }
+                            #main-search-caterogy-wrapper {
+                                width:100%;
+                            }
+                                #main-search-caterogy-selector
+                                , #main-search-input-wrapper{
+                                    margin-top:7px;
+                                    width:100%;
+                                }
+                        #main-search-input-wrapper {
+                            padding-right:14px;
+                            padding-left:14px;
+                        }
+                            #main-search-input {
+                                width:100%;
+                            }
+                            #main-search-input-wrapper .input-group-addon {
+                                padding:0;
+                            }
+                                #main-search-button {
+                                    background:transparent;
+                                    margin:0;
+                                    border:0;
+                                    height:28px;
+                                }
+
+                        /* Liens */
+                        #main-navbar-collapse-wrapper .navbar-nav li
+                        , #main-navbar-collapse-wrapper .navbar-nav li.active{
+                            height:44px;
+                        }
+                            #main-navbar-collapse-wrapper .navbar-nav li a
+                            , #main-navbar-collapse-wrapper .navbar-nav li.active a
+                            , #main-navbar-collapse-wrapper .navbar-nav li span.no-link-text{
+                                background:transparent;
+                                color:white;
+                                padding:12px;
+                                padding-left:14px;
+                                padding-right:14px;
+                                display:inline-block;
+                            }
+                            #main-navbar-collapse-wrapper .navbar-nav li a
+                            , #main-navbar-collapse-wrapper .navbar-nav li.active a{
+                                font-weight:bold;
+                            }
+                            #main-navbar-collapse-wrapper .navbar-nav li span.no-link-text{
+                                padding-left:4px;
+                                padding-right:4px;
+                            }
+                            #main-navbar-collapse-wrapper .navbar-nav li a:hover{
+                                background:#af0000;
+                            }
+                            #main-navbar-collapse-wrapper .navbar-nav li a.panier{
+                                margin-right:15px;
+                            }
+                                #main-navbar-collapse-wrapper .navbar-nav li .glyphicon{
+                                    font-size:.9em;
+                                    line-height:2px;
+                                    margin-right:4px;
+                                }
+
+
+
