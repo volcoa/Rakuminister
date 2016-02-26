@@ -28,3 +28,5 @@ scalajvm/upload/*
 .target
 bin/
 
+.sbtserver/
+*/.sbtserver
