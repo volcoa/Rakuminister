@@ -46,7 +46,7 @@
 
 
 
-              <form class="form-inline nav navbar-nav" id="main-navbar-search-form" action="/" method="GET">
+              <form class="form-inline nav navbar-nav" id="main-navbar-search-form">
                   <div class="form-group">
                       <div class="input-group" id="main-search-caterogy-wrapper">
                           <select class="form-control input-sm" id="main-search-caterogy-selector">
@@ -86,12 +86,13 @@
                   </div>
                   <div class="form-group">
                       <div class="input-group" id="main-search-input-wrapper">
-                          <input class="form-control input-sm" type="text" placeholder="Rechercher...">
+                          <input id="searchInput" class="form-control input-sm" type="text" placeholder="Rechercher...">
                           <div class="input-group-addon">
                               <button id="main-search-button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                           </div>
                       </div>
                   </div>
+                  <div id="suggestContainer"></div>
               </form>
 
               <button type="button" id="toogle-main-nav-button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse-wrapper" aria-expanded="false">
@@ -131,15 +132,6 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li id="home-page"><a href="@routes.Application.index()">Hello!</a></li>
-            <li class="menu"><a href="@routes.TodoController.index()">Reactive TodoMVC</a></li>
-            <li class="menu"><a href="@routes.HangmanController.index()">Reactive Hangman</a></li>
-            <li class="menu"><a href="@routes.FileUploadController.index()">HTML5 File Upload</a></li>
-            <li class="menu"><a href="@routes.ChatController.index()">Server Push Chat</a></li>
-          </ul>
-        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Rakuten - @title</h1>
           <div id="content">

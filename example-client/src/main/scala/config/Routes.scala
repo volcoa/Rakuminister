@@ -24,4 +24,9 @@ object Routes {
     def connectSSE(username: String) = base + s"/sse/$username"
     def talk = base + "/talk"
   }
+
+  object Completion {
+    val base = "/completion"
+    def get(kw: String) = base + s"/$kw"
+  }
 }

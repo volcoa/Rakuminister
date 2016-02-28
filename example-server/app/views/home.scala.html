@@ -1,20 +1,8 @@
-@(message: String, result: PMWsResult)(implicit request: RequestHeader)
+@(message: String)(implicit request: RequestHeader)
 
 @content = {
-  <p>
-    Play with Scalajs Kickstart by
-    <a href="https://github.com/vmunier/play-with-scalajs-example" target="_blank">Vincent Munier</a>
-  </p>
-  <h3>Play and Scala.js share a same message</h3>
-  <ul>
-    <li>Play shouts out: <em>@message</em></li>
-    <li>Scala.js shouts out: <em id="scalajsShoutOut"></em></li>
-    <li>Terry est passé par là...</li>
-  </ul>
-  <ul>
-    @result.products
-      @*<li>product.caption</li>*@
-  </ul>
+  <h1>Page d'accueil</h1>
+  <p>Contenu :<em>@message</em></p>
 }
 @templates.layout("Rakuten France", content = content){
     <script src="@routes.Assets.at("javascripts/scalajs-example-launcher.js")" type="text/javascript"></script>

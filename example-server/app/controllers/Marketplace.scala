@@ -1,25 +1,33 @@
 package controllers
 
-import models.Product
+import models.{Product, PMWsResult}
 import play.api.Play.current
-import play.api.libs.json._
 import play.api.libs.ws.{WSResponse, WS}
 import play.api.mvc._
 import shared.SharedMessages
+import play.api.libs.json._
+import play.api.libs.json.Reads._
+import play.api.libs.functional.syntax._
 
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
-import models.PMWsResult
 
 object Marketplace extends Controller {
 
-  implicit val resultReads = Json.reads[PMWsResult]
-//  implicit val productReads = Json.reads[Product]
+  //implicit val resultReads = Json.reads[PMWsResult]
+  //implicit val requestInfosReads = Json.reads[RequestInfos]
+
+  implicit val productReads: Reads[Product] = (
+    (JsPath \ "id").read[Long] and
+      (JsPath \ "urlName").read[String] and
+      (JsPath \ "headline").read[String] and
+      (JsPath \ "imagesUrls").read[Seq[String]]
+    )(Product.apply _)
 
   // URL : "/"
   def index = Action { implicit request =>
-    Ok(views.html.home(SharedMessages.itWorks, null))
+    Ok(views.html.home(SharedMessages.itWorks))
   }
 
   // URL : "/s/:keyword"
@@ -28,11 +36,16 @@ object Marketplace extends Controller {
     searchWS(keyword)
       .map(
         result => {
-          Ok(views.html.home("Test 1/2", (result.json \ "result").validate[PMWsResult].get))
+          val json = (result.json \ "result")
+          val jsonArrayProducts = (json \ "products").validate[List[Product]]
+          val products = jsonArrayProducts match {
+            case JsSuccess(list : List[Product], _) => list
+            case e: JsError => {List()}
+          }
+          Ok(views.html.search(keyword, products))
         }
       );
   }
-
 
 
 
@@ -55,6 +68,27 @@ object Marketplace extends Controller {
         "loadProducts" -> "true",
         "withoutStock" -> "false",
         "loadAdverts" -> "false")
+      .get()
+  }
+
+  // URL : "/s/:keyword"
+  def completion(keyword: String) = Action.async { implicit request =>
+
+    completionWS(keyword)
+      .map(
+        result => {
+          Ok(result.json.toString())
+        }
+      );
+  }
+
+  def completionWS(keyword: String) : Future[WSResponse] = {
+    val queryKw = "gs_" + keyword
+    WS.url("http://www.priceminister.com/completion")
+      .withHeaders("Accept" -> "application/json")
+      .withQueryString(
+        "q" -> queryKw,
+        "c" -> "frc")
       .get()
   }
 

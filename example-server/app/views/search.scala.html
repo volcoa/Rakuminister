@@ -1,0 +1,20 @@
+@(keyword: String, products: Seq[Product])(implicit request: RequestHeader)
+
+@content = {
+  <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
+  <ul>
+    @products.map{product =>
+      <li>
+        <img width="180" height="180" src="@product.imagesUrls(0)"/>
+        <p>@product.id</p>
+        <p>@product.urlName</p>
+        <p>@product.headline</p>
+      </li>
+    }
+
+      @*<li>product.caption</li>*@
+  </ul>
+}
+@templates.layout("Rakuten France", content = content){
+    <script src="@routes.Assets.at("javascripts/scalajs-example-launcher.js")" type="text/javascript"></script>
+}
