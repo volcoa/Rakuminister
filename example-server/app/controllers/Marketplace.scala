@@ -15,15 +15,27 @@ import scala.concurrent.Future
 
 object Marketplace extends Controller {
 
-  //implicit val resultReads = Json.reads[PMWsResult]
-  //implicit val requestInfosReads = Json.reads[RequestInfos]
-
-  implicit val productReads: Reads[Product] = (
+/*  implicit val productReads: Reads[Product] = (
     (JsPath \ "id").read[Long] and
       (JsPath \ "urlName").read[String] and
+      (JsPath \ "bestPrice").read[Double] and
+      (JsPath \ "newBestPrice").read[Double] and
+      (JsPath \ "usedBestPrice").read[Double] and
+      (JsPath \ "collectibleBestPrice").read[Double] and
+      (JsPath \ "advertsCount").read[Int] and
+      (JsPath \ "advertsNewCount").read[Int] and
+      (JsPath \ "advertsUsedCount").read[Int] and
+      (JsPath \ "advertsCollectibleCount").read[Int] and
       (JsPath \ "headline").read[String] and
-      (JsPath \ "imagesUrls").read[Seq[String]]
-    )(Product.apply _)
+      //(JsPath \ "caption").read[String] and
+      (JsPath \ "topic").read[String] and
+      (JsPath \ "reviewsAverageNote").read[Double] and
+      (JsPath \ "nbReviews").read[Long] and
+      (JsPath \ "imagesUrls").read[Seq[String]] and
+      //(JsPath \ "attributes").read[String] and
+      (JsPath \ "isMemo").read[Boolean]
+    )(Product.apply _)*/
+
 
   // URL : "/"
   def index = Action { implicit request =>
@@ -32,7 +44,7 @@ object Marketplace extends Controller {
 
   // URL : "/s/:keyword"
   def search(keyword: String) = Action.async { implicit request =>
-
+println("search")
     searchWS(keyword)
       .map(
         result => {

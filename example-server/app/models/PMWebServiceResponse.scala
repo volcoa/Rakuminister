@@ -14,32 +14,27 @@ case class RequestInfos(title: String,
                         keyword: String)
 case class Product(
                     id: Long,
-                    //isDigital: Boolean,
                     urlName: String,
-                    //bestPrice: Double,
-                    //newBestPrice: Double,
-                    //usedBestPrice: Double,
-                    //collectibleBestPrice: Double,
-                    //advertsCount: Double,
-                    //advertsNewCount: Double,
-                    //advertsUsedCount: Double,
-                    //advertsCollectibleCount: Double,
+                    bestPrice: Double,
+                    newBestPrice: Double,
+                    usedBestPrice: Double,
+                    collectibleBestPrice: Double,
+                    advertsCount: Int,
+                    advertsNewCount: Int,
+                    advertsUsedCount: Int,
+                    advertsCollectibleCount: Int,
                     headline: String,
-                    //caption: String,
-                    //topic: String,
-                    //reviewsAverageNote: Double,
-                    //nbReviews: Double,
-                    imagesUrls: Seq[String]
-                    //pickupAllowed: Boolean,
-                    //isPreOrder: Boolean,
-                    //releaseDate: String,
-                    //attributes: String,
-                    //isMemo: Boolean,
-                    //isMevFormAvailable: Boolean,
-                    //isNotModifiedSinceLastCrawl: Boolean,
-                    //images: Seq[Image],
-                    //rspMinimumAmount: Double
+                    caption: Option[String],
+                    topic: String,
+                    reviewsAverageNote: Double,
+                    nbReviews: Long,
+                    imagesUrls: Seq[String],
+                    attributes: Option[String],
+                    isMemo: Boolean
                   )
+object Product {
+  implicit val productJsonFormat = Json.format[Product]
+}
 
 case class Image(imagesUrls: Seq[Entry],
                  id: Double

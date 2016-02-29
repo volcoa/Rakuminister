@@ -5,17 +5,27 @@
   <ul>
     @products.map{product =>
       <li>
-        <img width="180" height="180" src="@product.imagesUrls(0)"/>
-        <p>@product.id</p>
-        <p>@product.urlName</p>
-        <p>@product.headline</p>
+        <a href="http://www.priceminister.com/offer/buy/@product.id/@product.urlName">
+            <img width="180" height="180" src="@product.imagesUrls(0)"/>
+        </a>
+          <p>@product.bestPrice</p>
+          <p>@product.newBestPrice</p>
+          <p>@product.usedBestPrice</p>
+          <p>@product.collectibleBestPrice</p>
+          <p>@product.advertsCount</p>
+          <p>@product.advertsNewCount</p>
+          <p>@product.advertsUsedCount</p>
+          <p>@product.advertsCollectibleCount</p>
+          <p>@product.headline</p>
+          <p>@product.caption</p>
+          <p>@product.topic</p>
+          <p>@product.reviewsAverageNote /5</p>
+          <p>@product.nbReviews</p>
+          <p>@product.attributes</p>
+          <p>@product.isMemo</p>
       </li>
     }
-
-      @*<li>product.caption</li>*@
   </ul>
 
 }
-@templates.layout("Rakuten France", content = content){
-    <script src="@routes.Assets.at("javascripts/scalajs-example-launcher.js")" type="text/javascript"></script>
-}
+@templates.layout("Rakuten France", content = content)

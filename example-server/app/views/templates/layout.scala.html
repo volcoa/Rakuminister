@@ -1,4 +1,4 @@
-@(title: String, header: Html = Html(""), content: Html = Html(""))(javascripts: Html)(implicit request: RequestHeader)
+@(title: String, header: Html = Html(""), content: Html = Html(""))()(implicit request: RequestHeader)
 @import play.api.Play
 <!DOCTYPE html>
 <html amp lang="fr">
@@ -167,8 +167,6 @@
         })
     </script>
     @playscalajs.html.scripts("exampleClient", "/assets")
-    @javascripts
-
   </body>
 </html>
 
