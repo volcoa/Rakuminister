@@ -48,15 +48,23 @@ object Marketplace extends Controller {
     searchWS(keyword, pageNumber)
       .map(
         result => {
+          var error:Boolean = false
+          var errorMessage:String = ""
           val json = result.json \ "result"
           val jsonArrayProducts = (json \ "products").validate[List[Product]]
-          val products = jsonArrayProducts match {
+          val products:List[Product] = jsonArrayProducts match {
             case JsSuccess(list : List[Product], _) => list
             case e: JsError => {
-              println("errrrreur : " + e)
-              List()}
+              error = true
+              errorMessage = e.toString
+              List()
+            }
           }
-          Ok(views.html.search(keyword, products))
+          if(error){
+            Ok(views.html.oups(errorMessage))
+          }else{
+            Ok(views.html.search(keyword, products))
+          }
         }
       );
   }

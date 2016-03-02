@@ -1,0 +1,5 @@
+http://sde-deb-dev.priceminister.lan:8080
+http://pba-deb-dev.priceminister.lan:8080
+http://jlu-deb-dev.priceminister.lan:8080
+http://nav-recette01.priceminister.lan:8080
+http://nav-recette02.priceminister.lan:8080
