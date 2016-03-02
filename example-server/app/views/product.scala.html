@@ -1,12 +1,59 @@
 @(productInfo: ProductInfo)(implicit request: RequestHeader)
 
-@content = {
-  <h1>@productInfo.headline</h1>
-  <ul>
-    @for((advert, index) <- productInfo.adverts.zipWithIndex) {
-      <li>@advert.advertId - @advert.salePrice</li>
-    }
-  </ul>
+@header = {
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pages/search.css")" />
 }
 
-@templates.layout("Rakuten France", content = content)
+@content = {
+  <h1>@productInfo.headline</h1>
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="@productInfo.images(0).imagesUrls.entry(1).url" class="img-responsive"/>
+        @*<ul>*@
+          @*for((image) <- productInfo.images) {*@
+            @*<li><img src="@image.imagesUrls.entry(3).url"></li>*@
+          @*}*@
+        @*</ul>*@
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+
+  @*Adverts list*@
+  <div class="content-fluid">
+    @for((advert, index) <- productInfo.adverts.zipWithIndex) {
+      <div class="row">
+        <div class="col-xs-2">
+          @advert.salePrice - @advert.shippingAmount
+        </div>
+        <div class="col-xs-6">
+          @advert.sellerComment
+          <ul>
+            @for((image) <- advert.images) {
+              <li><img src="@image.imagesUrls.entry(1).url" class="img-responsive"></li>
+            }
+          </ul>
+        </div>
+        <div class="col-xs-2">
+
+        </div>
+        <div class="col-xs-2">
+          <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+        </div>
+
+      </div>
+    }
+  </div>
+
+  @* Fiche technique *@
+  <p>
+    @Html(productInfo.description)
+  </p>
+}
+
+@templates.layout("Rakuten France", content = content, header = header)

@@ -48,6 +48,7 @@ case class Advert(
                    salePrice: Double,
                    shippingAmount: Double,
                    seller: Seller,
+                   sellerComment: Option[String],
                    //                     shippingTypes: List[String],
                    //                     availableShippingTypes: List[AvailableShippingTypes],
                    isPickupAllowed: Boolean,
@@ -64,12 +65,12 @@ case class Advert(
                      //                    type: String,
                      isUserBuyer: Boolean,
                      creationDate: Double,
-                     saleCommitCount: Double,
-                     totalSaleCount: Double,
-                     saleCount: Double,
-                     averageScore: Double,
+                     saleCommitCount: Option[Double],
+                     totalSaleCount: Option[Double],
+                     saleCount: Option[Double],
+                     averageScore: Option[Double],
                      isoCountryId: Double,
-                     sellerAnswerTime: Double,
+                     sellerAnswerTime: Option[Double],
                      isMicroCompagny: Boolean
                    )
 
