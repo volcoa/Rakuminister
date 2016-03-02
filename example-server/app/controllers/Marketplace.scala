@@ -41,7 +41,7 @@ object Marketplace extends Controller {
   }
 
   // URI : "/offer/buy/:productId/"
-  def productInfo(productId: Long, advertType: String) = Action.async { implicit request =>
+  def productInfo(productId: Long, advertType: String, other: String="") = Action.async { implicit request =>
     PMWebServices.productInfoWS(productId, advertType)
       .map(
         result => {
