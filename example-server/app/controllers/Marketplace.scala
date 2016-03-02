@@ -15,7 +15,7 @@ object Marketplace extends Controller {
   }
 
   // URI : "/s/:keyword"
-  def search(keyword: String, pageNumber: Int, advertType: String) = Action.async { implicit request =>
+  def search(keyword: String, pageNumber: Int, advertType: String, ajax: Boolean) = Action.async { implicit request =>
 
     PMWebServices.searchWS(keyword, pageNumber, advertType)
       .map(
@@ -34,7 +34,11 @@ object Marketplace extends Controller {
           if(error){
             Ok(views.html.oups(errorMessage))
           }else{
-            Ok(views.html.search(keyword, navigationResult))
+            if(ajax){
+              Ok(views.html.tags.productListing(keyword, navigationResult))
+            }else{
+              Ok(views.html.search(keyword, navigationResult))
+            }
           }
         }
       );

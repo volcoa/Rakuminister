@@ -4,140 +4,17 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pages/search.css")" />
 }
 @content = {
+
     @if(navigationResult.products.size == 0){
         <h1>Pas de résultats pour "<em>@keyword</em>"</h1>
     }else{
         <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
+        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'ALL', 1)">Tout</button>
+        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'NEW', 1)">NEUF</button>
+        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'USED', 1)">OCCASION</button>
 
-
-    <div class="content-fluid">
-        <div class="row">
-            @for((product, index) <- navigationResult.products.zipWithIndex) {
-                @if((index>0)) {
-                    <div class="clearfix visible-xs-block"></div>
-                    <hr class="visible-xs-block"/>
-                }
-                @if((index+1)%2==1) {
-                    <div class="clearfix visible-sm-block"></div>
-                    <hr class="visible-sm-block"/>
-                }
-                @if((index+1)%4==1) {
-                    <div class="clearfix visible-md-block"></div>
-                    <hr class="visible-md-block"/>
-                }
-                @if((index+1)%6==1) {
-                    <div class="clearfix visible-lg-block"></div>
-                    <hr class="visible-lg-block"/>
-                }
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
-                    <div class="productbox">
-
-                        <div class="row">
-
-                            <div class="producttitle">
-                                @product.headline
-                            </div>
-
-                            <div class="col-xs-6 col-sm-12 product-img-wrapper">
-                                <a href="/offer/buy/@product.id/@product.urlName">
-                                    <div class="visible-xs-block">
-                                        <img width="120" height="120" src="@product.imagesUrls"  class="img-responsive product-img"/>
-                                    </div>
-                                    <div class="visible-sm-block visible-md-block visible-lg-block">
-                                        <img width="120" height="120" src="@product.imagesUrls"  class="img-responsive product-img"/>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-xs-6 col-sm-12">
-
-                                <!-- Xtrem Small version -->
-                                <div class="buy-price-box visible-xs-block pull-right">
-                                    <div class="starsbox">
-                                        @for(incr <- 1 to 5){
-                                        @if(product.reviewsAverageNote >= incr) {
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        } else {
-                                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                                        }
-                                        }
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span class="price">@product.bestPrice</span>
-                                    </div>
-
-                                    <div class="productpricet">
-                                        <div class="">
-                                            <a href="#" class="btn btn-primary btn-sx " role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Other versions -->
-                                <div class="buy-price-box visible-sm-block visible-md-block visible-lg-block">
-                                    <div class="starsbox">
-                                        @for(incr <- 1 to 5){
-                                        @if(product.reviewsAverageNote >= incr) {
-                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                        } else {
-                                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                                        }
-                                        }
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span class="price">@product.bestPrice</span>
-                                    </div>
-
-                                    <div class="productpricet">
-                                       <div class="visible-sm-block">
-                                            <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
-                                        </div>
-                                        <div class="visible-md-block">
-                                            <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
-                                        </div>
-                                        <div class="visible-lg-block">
-                                            <a href="#" class="btn btn-primary btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <!--
-
-
-
-                        <div class="pricetext">
-                            <span class="price">@product.newBestPrice</span> Neuf
-            </div>
-            <div class="pricetext">
-                <span class="price">@product.usedBestPrice</span> Occaz'
-            </div>
-
-
-            <p>@product.bestPrice</p> best
-            <p>@product.newBestPrice</p> Neuf
-            <p>@product.usedBestPrice</p> Occaz
-            <p>@product.collectibleBestPrice</p> Collection
-
-
-            <p>@product.advertsCount</p>
-            <p>@product.advertsNewCount</p>
-            <p>@product.advertsUsedCount</p>
-            <p>@product.advertsCollectibleCount</p>
-            <p>@product.caption</p>
-            <p>@product.topic</p>
-            <p> /5</p>
-            <p>@product.nbReviews</p>
-            @*<p>@product.attributes</p>*@
-            <p>@product.isMemo</p>
-
-            -->
-            }
-        </div>
+        <div id="productListing" class="content-fluid">
+            @tags.productListing(keyword, navigationResult)
         </div>
     }
 }

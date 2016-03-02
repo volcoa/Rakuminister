@@ -79,6 +79,27 @@ object MarketplaceJS extends js.JSApp {
 }
 
 @JSExport
+object NavigationAjaxJS extends {
+
+  def fetchData(keyword: String,advType: String, pageNumber: Int) = Ajax.get(Routes.NavigationAjax.get(keyword, advType, pageNumber))
+
+  @JSExport
+  def getProducts(keyword: String, advType: String, pageNumber: Int): Unit = {
+      fetchData(keyword, advType, pageNumber).onSuccess {
+        case s =>
+          val html = s.responseText
+          if(pageNumber == 1){
+            $("#productListing").html(html)
+          }else{
+            $("#productListing").append(html)
+          }
+       }
+  }
+
+}
+
+
+@JSExport
 object CompletionJS extends {
 
   var suggestedKeywords = List[String]()

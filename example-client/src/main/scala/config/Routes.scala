@@ -29,4 +29,9 @@ object Routes {
     val base = "/completion"
     def get(kw: String) = base + s"/$kw"
   }
+
+  object NavigationAjax {
+    val base = "/navajax"
+    def get(kw: String, advType: String, page: Int) = base + s"/$kw/$advType/$page"
+  }
 }
