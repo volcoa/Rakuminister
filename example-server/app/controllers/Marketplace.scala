@@ -69,13 +69,14 @@ object Marketplace extends Controller {
   //        &channel=buyerapp
   //        &loadProducts=true
   //        &withoutStock=false
-  def searchWS(keyword: String) : Future[WSResponse] = {
+  def searchWS(keyword: String, pageNumber: Int) : Future[WSResponse] = {
+
     WS.url("http://ws.priceminister.com/rest/navigation/v1/list")
       .withHeaders("Accept" -> "application/json")
       .withQueryString(
         "kw" -> keyword,
 //        "category" -> "Mode",
-        "pageNumber" -> "1",
+        "pageNumber" -> pageNumber.toString,
         "advertType" -> "ALL",
         "loadProducts" -> "true",
         "withoutStock" -> "false",
