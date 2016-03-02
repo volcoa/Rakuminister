@@ -1,7 +1,7 @@
-@(keyword: String, products: Seq[Product])(implicit request: RequestHeader)
+@(keyword: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
 
 @content = {
-    @if(products.size == 0){
+    @if(navigationResult.products.size == 0){
         <h1>Pas de résultats pour "<em>@keyword</em>"</h1>
     }else{
         <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
