@@ -1,12 +1,12 @@
-@(keyword: String, products: Seq[Product])(implicit request: RequestHeader)
+@(keyword: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
 
-@content = {
+    @content = {
     <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
 
 
     <div class="content-fluid">
         <div class="row">
-            @for((product, index) <- products.zipWithIndex) {
+            @for((product, index) <- navigationResult.products.zipWithIndex) {
                 @if((index+1)%4==1) {
         </div>
         <hr classs="clearfix" />

@@ -1,6 +1,6 @@
 package controllers
 
-import models.{Product, ProductInfo}
+import models.{NavigationResult, Product, ProductInfo}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
@@ -22,20 +22,19 @@ object Marketplace extends Controller {
         result => {
           var error:Boolean = false
           var errorMessage:String = ""
-          val json = result.json \ "result"
-          val jsonArrayProducts = (json \ "products").validate[List[Product]]
-          val products:List[Product] = jsonArrayProducts match {
-            case JsSuccess(list : List[Product], _) => list
+          val navigationResultAsJson = (result.json \ "result").validate[NavigationResult]
+          val navigationResult : NavigationResult = navigationResultAsJson match {
+            case JsSuccess(navigationResult : NavigationResult, _) => navigationResult
             case e: JsError => {
               error = true
               errorMessage = e.toString
-              List()
+              null
             }
           }
           if(error){
             Ok(views.html.oups(errorMessage))
           }else{
-            Ok(views.html.search(keyword, products))
+            Ok(views.html.search(keyword, navigationResult))
           }
         }
       );

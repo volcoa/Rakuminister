@@ -2,11 +2,15 @@ package models
 
 import play.api.libs.json.Json
 
-case class PMWsResult(
+case class NavigationResult(
                    title: String,
                    keyword: String,
                    products: Seq[Product]
                  )
+object NavigationResult {
+  implicit val productJsonFormat = Json.format[Product]
+  implicit val navigationResultJsonFormat = Json.format[NavigationResult]
+}
 
 case class RequestInfos(title: String,
                         keyword: String)
@@ -29,7 +33,3 @@ case class Product(
                     imagesUrls: Option[Seq[String]],
                     isMemo: Boolean
                   )
-object Product {
-  implicit val entryJsonFormat = Json.format[Entry]
-  implicit val productJsonFormat = Json.format[Product]
-}
