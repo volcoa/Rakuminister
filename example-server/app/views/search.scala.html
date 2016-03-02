@@ -1,20 +1,23 @@
-@(keyword: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
+@(keyword: String, products: Seq[Product])(implicit request: RequestHeader)
 
-    @content = {
-    <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
+@content = {
+    @if(products.size == 0){
+        <h1>Pas de résultats pour "<em>@keyword</em>"</h1>
+    }else{
+        <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
 
 
     <div class="content-fluid">
         <div class="row">
             @for((product, index) <- navigationResult.products.zipWithIndex) {
                 @if((index+1)%4==1) {
-        </div>
-        <hr classs="clearfix" />
-        <div class="row">
-                }
+                </div>
+            <hr classs="clearfix" />
+            <div class="row">
+            }
                 <div class="col-xs-3">
                     <div class="productbox">
-                        <a href="http://www.priceminister.com/offer/buy/@product.id/@product.urlName">
+                        <a href="/offer/buy/@product.id">
                             <img width="180" height="180" src="@product.imagesUrls"  class="img-responsive"/>
                         </a>
                         <div class="producttitle">
@@ -22,13 +25,13 @@
                         </div>
 
                         <div class="pull-right">
-                            @for(incr <- 1 to 5){
+                        @for(incr <- 1 to 5){
                             @if(product.reviewsAverageNote >= incr) {
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                             } else {
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                             }
-                            }
+                        }
                         </div>
 
 
@@ -52,32 +55,33 @@
 
                         <div class="pricetext">
                             <span class="price">@product.newBestPrice</span> Neuf
-                        </div>
-                        <div class="pricetext">
-                            <span class="price">@product.usedBestPrice</span> Occaz'
-                        </div>
+            </div>
+            <div class="pricetext">
+                <span class="price">@product.usedBestPrice</span> Occaz'
+            </div>
 
 
-                <p>@product.bestPrice</p> best
-                <p>@product.newBestPrice</p> Neuf
-                <p>@product.usedBestPrice</p> Occaz
-                <p>@product.collectibleBestPrice</p> Collection
+            <p>@product.bestPrice</p> best
+            <p>@product.newBestPrice</p> Neuf
+            <p>@product.usedBestPrice</p> Occaz
+            <p>@product.collectibleBestPrice</p> Collection
 
 
-                <p>@product.advertsCount</p>
-                <p>@product.advertsNewCount</p>
-                <p>@product.advertsUsedCount</p>
-                <p>@product.advertsCollectibleCount</p>
-                <p>@product.caption</p>
-                <p>@product.topic</p>
-                <p> /5</p>
-                <p>@product.nbReviews</p>
-                @*<p>@product.attributes</p>*@
-                <p>@product.isMemo</p>
+            <p>@product.advertsCount</p>
+            <p>@product.advertsNewCount</p>
+            <p>@product.advertsUsedCount</p>
+            <p>@product.advertsCollectibleCount</p>
+            <p>@product.caption</p>
+            <p>@product.topic</p>
+            <p> /5</p>
+            <p>@product.nbReviews</p>
+            @*<p>@product.attributes</p>*@
+            <p>@product.isMemo</p>
 
-                -->
+            -->
             }
         </div>
-    </div>
+        </div>
+    }
 }
 @templates.layout("Rakuten France", content = content)
