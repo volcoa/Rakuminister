@@ -1,31 +1,83 @@
 @(keyword: String, products: Seq[Product])(implicit request: RequestHeader)
 
 @content = {
-  <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
-  <ul>
-    @products.map{product =>
-      <li>
-        <a href="http://www.priceminister.com/offer/buy/@product.id/@product.urlName">
-            <img width="180" height="180" src="@product.imagesUrls(0)"/>
-        </a>
-          <p>@product.bestPrice</p>
-          <p>@product.newBestPrice</p>
-          <p>@product.usedBestPrice</p>
-          <p>@product.collectibleBestPrice</p>
-          <p>@product.advertsCount</p>
-          <p>@product.advertsNewCount</p>
-          <p>@product.advertsUsedCount</p>
-          <p>@product.advertsCollectibleCount</p>
-          <p>@product.headline</p>
-          <p>@product.caption</p>
-          <p>@product.topic</p>
-          <p>@product.reviewsAverageNote /5</p>
-          <p>@product.nbReviews</p>
-          <p>@product.attributes</p>
-          <p>@product.isMemo</p>
-      </li>
-    }
-  </ul>
+    <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
 
+
+    <div class="content-fluid">
+        <div class="row">
+            @for((product, index) <- products.zipWithIndex) {
+                @if((index+1)%4==1) {
+        </div>
+        <hr classs="clearfix" />
+        <div class="row">
+                }
+                <div class="col-xs-3">
+                    <div class="productbox">
+                        <a href="http://www.priceminister.com/offer/buy/@product.id/@product.urlName">
+                            <img width="180" height="180" src="@product.imagesUrls(0)"  class="img-responsive"/>
+                        </a>
+                        <div class="producttitle">
+                            <h5>@product.headline</h5>
+                        </div>
+
+                        <div class="pull-right">
+                            @for(incr <- 1 to 5){
+                            @if(product.reviewsAverageNote >= incr) {
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            } else {
+                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                            }
+                            }
+                        </div>
+
+
+                        <div class="pricetext">
+                            <h4><span class="price">@product.usedBestPrice</span></h4>
+                        </div>
+
+                        <hr class="clearfix"/>
+
+                        <div class="productprice">
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-primary btm-sm" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            </div>
+                        </div>
+
+                        <span class="clearfix"></span>
+                    </div>
+                </div>
+                <!--
+
+
+                        <div class="pricetext">
+                            <span class="price">@product.newBestPrice</span> Neuf
+                        </div>
+                        <div class="pricetext">
+                            <span class="price">@product.usedBestPrice</span> Occaz'
+                        </div>
+
+
+                <p>@product.bestPrice</p> best
+                <p>@product.newBestPrice</p> Neuf
+                <p>@product.usedBestPrice</p> Occaz
+                <p>@product.collectibleBestPrice</p> Collection
+
+
+                <p>@product.advertsCount</p>
+                <p>@product.advertsNewCount</p>
+                <p>@product.advertsUsedCount</p>
+                <p>@product.advertsCollectibleCount</p>
+                <p>@product.caption</p>
+                <p>@product.topic</p>
+                <p> /5</p>
+                <p>@product.nbReviews</p>
+                <p>@product.attributes</p>
+                <p>@product.isMemo</p>
+
+                -->
+            }
+        </div>
+    </div>
 }
 @templates.layout("Rakuten France", content = content)
