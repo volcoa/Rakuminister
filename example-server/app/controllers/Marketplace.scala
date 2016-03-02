@@ -1,51 +1,23 @@
 package controllers
 
-import _root_.util.WSCall
-import models.{Product, PMWsResult}
-import play.api.Play.current
-import play.api.libs.ws.{WSResponse, WS}
+import models.{Product, ProductInfo}
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.json._
 import play.api.mvc._
 import shared.SharedMessages
-import play.api.libs.json._
-import play.api.libs.json.Reads._
-import play.api.libs.functional.syntax._
-
-import play.api.libs.concurrent.Execution.Implicits._
-
-import scala.concurrent.Future
+import webservices.PMWebServices
 
 object Marketplace extends Controller {
 
-/*  implicit val productReads: Reads[Product] = (
-    (JsPath \ "id").read[Long] and
-      (JsPath \ "urlName").read[String] and
-      (JsPath \ "bestPrice").read[Double] and
-      (JsPath \ "newBestPrice").read[Double] and
-      (JsPath \ "usedBestPrice").read[Double] and
-      (JsPath \ "collectibleBestPrice").read[Double] and
-      (JsPath \ "advertsCount").read[Int] and
-      (JsPath \ "advertsNewCount").read[Int] and
-      (JsPath \ "advertsUsedCount").read[Int] and
-      (JsPath \ "advertsCollectibleCount").read[Int] and
-      (JsPath \ "headline").read[String] and
-      //(JsPath \ "caption").read[String] and
-      (JsPath \ "topic").read[String] and
-      (JsPath \ "reviewsAverageNote").read[Double] and
-      (JsPath \ "nbReviews").read[Long] and
-      (JsPath \ "imagesUrls").read[Seq[String]] and
-      //(JsPath \ "attributes").read[String] and
-      (JsPath \ "isMemo").read[Boolean]
-    )(Product.apply _)*/
-
-
-  // URL : "/"
+  // URI : "/"
   def index = Action { implicit request =>
     Ok(views.html.home(SharedMessages.itWorks))
   }
 
-  // URL : "/s/:keyword"
-  def search(keyword: String, pageNumber: Int) = Action.async { implicit request =>
-    searchWS(keyword, pageNumber)
+  // URI : "/s/:keyword"
+  def search(keyword: String, pageNumber: Int, advertType: String) = Action.async { implicit request =>
+
+    PMWebServices.searchWS(keyword, pageNumber, advertType)
       .map(
         result => {
           var error:Boolean = false
@@ -69,52 +41,25 @@ object Marketplace extends Controller {
       );
   }
 
-
-
-  // http://ws.priceminister.com/rest/navigation/v1/list
-  //        ?kw=hello
-  //        &category=Mode
-  //        &pageNumber=1
-  //        &advertType=ALL
-  //        &channel=buyerapp
-  //        &loadProducts=true
-  //        &withoutStock=false
-  def searchWS(keyword: String, pageNumber: Int) : Future[WSResponse] = {
-
-    WS.url(WSCall.getNextServer() + "/rest/navigation/v1/list")
-    //WS.url("http://ws.priceminister.com/rest/navigation/v1/list")
-      .withHeaders("Accept" -> "application/json")
-      .withQueryString(
-        "kw" -> keyword,
-//        "category" -> "Mode",
-        "pageNumber" -> pageNumber.toString,
-        "advertType" -> "ALL",
-        "loadProducts" -> "true",
-        "withoutStock" -> "false",
-        "loadAdverts" -> "false")
-      .get()
+  // URI : "/offer/buy/:productId/"
+  def productInfo(productId: Long, advertType: String) = Action.async { implicit request =>
+    PMWebServices.productInfoWS(productId, advertType)
+      .map(
+        result => {
+          val productInfo = (result.json \ "result").validate[ProductInfo].get
+          Ok(views.html.product(productInfo))
+        }
+      );
   }
 
-  // URL : "/s/:keyword"
+  // URI : "/s/:keyword"
   def completion(keyword: String) = Action.async { implicit request =>
 
-    completionWS(keyword)
+    PMWebServices.completionWS(keyword)
       .map(
         result => {
           Ok(result.json.toString())
         }
       );
   }
-
-  def completionWS(keyword: String) : Future[WSResponse] = {
-    val queryKw = "gs_" + keyword
-    WS.url("http://www.priceminister.com/completion")
-      .withHeaders("Accept" -> "application/json")
-      .withQueryString(
-        "q" -> queryKw,
-        "c" -> "frc")
-      .get()
-  }
-
-
 }

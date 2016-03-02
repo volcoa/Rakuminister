@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.{JsPath, Reads, Json}
+import play.api.libs.json.Json
 
 case class PMWsResult(
                    title: String,
@@ -27,7 +27,6 @@ case class Product(
                     reviewsAverageNote: Double,
                     nbReviews: Long,
                     imagesUrls: Seq[String],
-                    //attributes: Option[Array[Entry]],
                     isMemo: Boolean
                   )
 object Product {
@@ -38,16 +37,3 @@ object Product {
 case class Image(imagesUrls: Seq[Entry],
                  id: Double
                 )
-
-case class Entry(key: String,
-                 value: String)
-
-
-
-//case class ImagesUrls(
-//                       entry: List[Entry]
-//                     )
-//case class Images(
-//                   imagesUrls: ImagesUrls,
-//                   id: Double
-//                 )

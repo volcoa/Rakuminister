@@ -1,0 +1,12 @@
+@(productInfo: ProductInfo)(implicit request: RequestHeader)
+
+@content = {
+  <h1>@productInfo.headline</h1>
+  <ul>
+    @for((advert, index) <- productInfo.adverts.zipWithIndex) {
+      <li>@advert.advertId - @advert.salePrice</li>
+    }
+  </ul>
+}
+
+@templates.layout("Rakuten France", content = content)

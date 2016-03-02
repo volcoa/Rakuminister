@@ -7,7 +7,8 @@ GET           /                            controllers.Marketplace.index
 
 
 GET           /home                        controllers.Application.index
-GET           /s/:keyword                  controllers.Marketplace.search(keyword: String, pa: Int ?= 1)
+GET           /s/:keyword                  controllers.Marketplace.search(keyword: String, pa: Int ?= 1, advertType: String ?="ALL")
+GET           /offer/buy/:productId        controllers.Marketplace.productInfo(productId: Long, advertType: String ?="ALL")
 GET           /completion/:keyword         controllers.Marketplace.completion(keyword: String)
 
 GET           /todos                       controllers.TodoController.index
