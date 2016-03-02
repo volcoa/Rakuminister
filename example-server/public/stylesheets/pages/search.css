@@ -1,0 +1,63 @@
+
+.productbox {
+
+}
+    .visible-xs-block .starsbox {
+        margin-top:28px;
+    }
+    .visible-sm-block .starsbox
+    , .visible-md-block .starsbox
+    , .visible-lg-block .starsbox {
+        text-align:center;
+    }
+    .product-img-wrapper {
+    }
+        .producttitle {
+            width:90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight:bold;
+            margin-bottom:2px;
+        }
+        .product-img-wrapper a {
+            width:100%;
+            height:120px;
+            display:block;
+            position:relative;
+        }
+            .product-img {
+                max-width:120px;
+                max-height:120px;
+                position:absolute;
+            }
+            .visible-sm-block .product-img
+            , .visible-md-block .product-img
+            , .visible-lg-block .product-img {
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%);
+            }
+    .buy-price-box {
+        background-color:rgba(255, 255, 255, 0.5);
+        min-height:120px;
+        min-width:90px;
+        padding-left:4px;
+    }
+    .visible-sm-block .buy-price-box
+    , .visible-md-block .buy-price-box
+    , .visible-lg-block .buy-price-box {
+        width:90px;
+        magin-rigth:2%;
+    }
+        .price-wrapper {
+        }
+        .visible-sm-block .price-wrapper
+        , .visible-md-block .price-wrapper
+        , .visible-lg-block .price-wrapper {
+            text-align:center;
+        }
+            .buy-price-box .price {
+                font-size:1.3em;
+            }
