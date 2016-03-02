@@ -46,8 +46,23 @@ object Marketplace extends Controller {
     PMWebServices.productInfoWS(productId, advertType)
       .map(
         result => {
-          val productInfo = (result.json \ "result").validate[ProductInfo].get
-          Ok(views.html.product(productInfo))
+          var error:Boolean = false
+          var errorMessage:String = ""
+          val productInfoAsJson = (result.json \ "result").validate[ProductInfo]
+
+          val productInfo:ProductInfo = productInfoAsJson match {
+              case JsSuccess(productInfo: ProductInfo, _) => productInfo
+              case e: JsError => {
+                error = true
+                errorMessage = e.toString
+                null
+              }
+            }
+          if(error){
+            Ok(views.html.oups(errorMessage))
+          }else{
+            Ok(views.html.product(productInfo))
+          }
         }
       );
   }
