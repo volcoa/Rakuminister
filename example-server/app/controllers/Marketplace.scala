@@ -43,12 +43,12 @@ object Marketplace extends Controller {
   }
 
   // URL : "/s/:keyword"
-  def search(keyword: String) = Action.async { implicit request =>
-println("search")
-    searchWS(keyword)
+  def search(keyword: String, pageNumber: Int) = Action.async { implicit request =>
+    searchWS(keyword, pageNumber)
       .map(
         result => {
-          val json = (result.json \ "result")
+          result.allHeaders
+          val json = result.json \ "result"
           val jsonArrayProducts = (json \ "products").validate[List[Product]]
           val products = jsonArrayProducts match {
             case JsSuccess(list : List[Product], _) => list
