@@ -1,5 +1,6 @@
 package controllers
 
+import _root_.util.WSCall
 import models.{Product, PMWsResult}
 import play.api.Play.current
 import play.api.libs.ws.{WSResponse, WS}
@@ -47,12 +48,13 @@ object Marketplace extends Controller {
     searchWS(keyword, pageNumber)
       .map(
         result => {
-          result.allHeaders
           val json = result.json \ "result"
           val jsonArrayProducts = (json \ "products").validate[List[Product]]
           val products = jsonArrayProducts match {
             case JsSuccess(list : List[Product], _) => list
-            case e: JsError => {List()}
+            case e: JsError => {
+              println("errrrreur : " + e)
+              List()}
           }
           Ok(views.html.search(keyword, products))
         }
@@ -71,7 +73,8 @@ object Marketplace extends Controller {
   //        &withoutStock=false
   def searchWS(keyword: String, pageNumber: Int) : Future[WSResponse] = {
 
-    WS.url("http://ws.priceminister.com/rest/navigation/v1/list")
+    WS.url(WSCall.getNextServer() + "/rest/navigation/v1/list")
+    //WS.url("http://ws.priceminister.com/rest/navigation/v1/list")
       .withHeaders("Accept" -> "application/json")
       .withQueryString(
         "kw" -> keyword,

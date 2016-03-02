@@ -6,9 +6,7 @@ case class PMWsResult(
                    title: String,
                    keyword: String,
                    products: Seq[Product]
-                 ) {
-  implicit val productReads = Json.reads[Product]
-}
+                 )
 
 case class RequestInfos(title: String,
                         keyword: String)
@@ -29,10 +27,11 @@ case class Product(
                     reviewsAverageNote: Double,
                     nbReviews: Long,
                     imagesUrls: Seq[String],
-                    attributes: Option[String],
+                    //attributes: Option[Array[Entry]],
                     isMemo: Boolean
                   )
 object Product {
+  implicit val entryJsonFormat = Json.format[Entry]
   implicit val productJsonFormat = Json.format[Product]
 }
 
@@ -40,13 +39,11 @@ case class Image(imagesUrls: Seq[Entry],
                  id: Double
                 )
 
-case class Entry(size: String,
-                 url: String)
+case class Entry(key: String,
+                 value: String)
 
-//case class Entry(
-//                  size: String,
-//                  url: String
-//                )
+
+
 //case class ImagesUrls(
 //                       entry: List[Entry]
 //                     )
