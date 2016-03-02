@@ -2,9 +2,36 @@ package webservices
 
 import play.api.libs.ws.{WS, WSResponse}
 import play.api.Play.current
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
 object PMWebServices {
+
+  var serversList = List[String]()
+  var serverIndex = 0
+
+  def createServersList(serverListFilePath: String): Unit ={
+    var servers = new ListBuffer[String]()
+    for (serverLine <- scala.io.Source.fromFile(serverListFilePath).getLines()) {
+      servers += serverLine
+    }
+    serversList = servers.toList
+  }
+
+  def getNextServer(): String = {
+    if(serverIndex < serversList.length-1){
+      serverIndex = serverIndex + 1
+    }else {
+      serverIndex = 0
+    }
+    var server = serversList(0)
+    try {
+      server = serversList(serverIndex)
+    } catch {
+      case e: Exception => server = serversList(0)
+    }
+    return server
+  }
 
   // http://ws.priceminister.com/rest/navigation/v1/list
   //        ?kw=:keyword
@@ -17,7 +44,7 @@ object PMWebServices {
   //        &channel=hackathon
   def searchWS(keyword: String, pageNumber: Int, advertType: String) : Future[WSResponse] = {
 
-    WS.url("http://ws.priceminister.com/rest/navigation/v1/list")
+    WS.url(getNextServer() + "/rest/navigation/v1/list")
       .withHeaders("Accept" -> "application/json")
       .withQueryString(
         "kw" -> keyword,
@@ -40,7 +67,7 @@ object PMWebServices {
   //        &channel=hackathon
   def productInfoWS(productId: Long, advertType: String) : Future[WSResponse] = {
 
-    WS.url("http://ws.priceminister.com/rest/product/v1/get")
+    WS.url(getNextServer() + "/rest/product/v1/get")
       .withHeaders("Accept" -> "application/json")
       .withQueryString(
         "productId" -> productId.toString,

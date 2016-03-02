@@ -26,14 +26,10 @@ case class Product(
                     topic: String,
                     reviewsAverageNote: Double,
                     nbReviews: Long,
-                    imagesUrls: Seq[String],
+                    imagesUrls: Option[Seq[String]],
                     isMemo: Boolean
                   )
 object Product {
   implicit val entryJsonFormat = Json.format[Entry]
   implicit val productJsonFormat = Json.format[Product]
 }
-
-case class Image(imagesUrls: Seq[Entry],
-                 id: Double
-                )
