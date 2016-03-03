@@ -11,3 +11,12 @@
 .unbrokable-space {
     white-space:nowrap;
 }
+
+.btn span.glyphicon {
+    margin-left:6px;
+    font-size:.8em;
+}
+
+.add-to-cart-button {
+    background-color:#bf0000;
+}

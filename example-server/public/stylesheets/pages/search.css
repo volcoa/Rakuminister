@@ -44,13 +44,6 @@
             .buy-price-box .price {
                 font-size:1.3em;
             }
-        .add-to-cart-button {
-            background-color:#bf0000;
-        }
-            .add-to-cart-button span.glyphicon {
-                margin-left:6px;
-                font-size:.9em;
-            }
 
 /* XS */
 @media (max-width: 767px) {

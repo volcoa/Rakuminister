@@ -5,7 +5,104 @@
 }
 
 @content = {
-  <h1>@productInfo.headline</h1>
+
+  <div class="well center-block text-center">
+    <div class="row">
+      <h1>@productInfo.headline</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5">
+      <img src="@productInfo.images(0).imagesUrls.entry(1).url" class="img-responsive"/>
+
+      <a href="#">
+        <button type="button" class="btn btn-default">Favori <span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
+      </a>
+
+      <a href="#">
+        <button type="button" class="btn btn-default">Alert prix <span class="glyphicon glyphicon-bell" aria-hidden="true"></span></button>
+      </a>
+
+      <a href="#">
+        <button type="button" class="btn btn-default">Partage <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
+      </a>
+      <div>
+        <span class="text-muted">@productInfo.aisle</span>
+      </div>
+
+      @if(productInfo.description.isDefined) {
+        <p>@Html(productInfo.description.get)</p>
+      }
+
+
+      <span style="height: 20px;
+      display: inline-block;
+      line-height: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      word-wrap: break-word;
+      font-family: Arial,Helvetica,sans-serif;
+      padding:0 0 0 25px;
+      font-weight:700;
+      color:#C0262E;
+      background-image:url(@routes.Assets.at("images/rsp.png"));
+      background-repeat:no-repeat;
+      background-position:0 0;" > ??? Super Points</span>
+
+    </div>
+    <div class="col-md-7">
+
+    </div>
+  </div>
+
+<div class="starsbox">
+  @for(incr <- 1 to 5){
+  @if(productInfo.reviewsAverageNote >= incr) {
+  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+  } else {
+  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+  }
+  }
+</div>
+
+@for((review, index) <- productInfo.reviews.zipWithIndex) {
+  @review.note
+}
+  <ul>
+
+    <li>@productInfo.aisle</li>
+    <li>@productInfo.id</li>
+    <li>@productInfo.urlName</li>
+    <li>@productInfo.formattedBestPrice</li>
+    <li>@productInfo.formattedNewBestPrice</li>
+    <li>@productInfo.formattedUsedBestPrice</li>
+    <li>@productInfo.formattedCollectibleBestPrice</li>
+    <li>@productInfo.collapseBestPrice</li>
+    <li>@productInfo.advertsCount</li>
+    <li>@productInfo.advertsNewCount</li>
+    <li>@productInfo.advertsUsedCount</li>
+    <li>@productInfo.advertsCollectibleCount</li>
+    <li>@productInfo.headline</li>
+    <li>@productInfo.reviewsAverageNote</li>
+    <li>@productInfo.reviews</li>
+    <li>@productInfo.productDetailTitle</li>
+    <li>@productInfo.rspMinimumAmount</li>
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,6 +120,11 @@
       </div>
     </div>
   </div>
+
+
+
+
+
 
   @*Adverts list*@
   <div class="content-fluid">
@@ -43,7 +145,7 @@
 
         </div>
         <div class="col-xs-2">
-          <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+          <a href="#" class="btn btn-danger btn-sm btn-block add-to-cart-button" role="button">Ajouter au <span class="glyphicon glyphicon-shopping-cart"></span></a>
         </div>
 
       </div>
