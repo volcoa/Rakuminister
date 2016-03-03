@@ -42,21 +42,47 @@ object PMWebServices {
   //        &loadProducts=true
   //        &withoutStock=false
   //        &channel=hackathon
-  def searchWS(keyword: String, pageNumber: Int, advertType: String) : Future[WSResponse] = {
+  def navigationWS(keyword: String, pageNumber: Int, advertType: String, category: String) : Future[WSResponse] = {
 
-    WS.url(getNextServer() + "/rest/navigation/v1/list")
-      .withHeaders("Accept" -> "application/json")
-      .withQueryString(
-        "kw" -> keyword,
-        //        "category" -> "Mode",
-        "pageNumber" -> pageNumber.toString,
-        "advertType" -> advertType,
-        "loadProducts" -> "true",
-        "withoutStock" -> "false",
-        "loadAdverts" -> "false",
-        "channel" -> "hackathon"
-      )
-      .get()
+    if(keyword != "" && category != ""){
+      return WS.url(getNextServer() + "/rest/navigation/v1/list")
+        .withHeaders("Accept" -> "application/json")
+        .withQueryString(
+          "pageNumber" -> pageNumber.toString,
+          "kw" -> keyword,
+          "category" -> category,
+          "advertType" -> advertType,
+          "loadProducts" -> "true",
+          "withoutStock" -> "false",
+          "loadAdverts" -> "false",
+          "channel" -> "hackathon"
+        ).get()
+    }else if(keyword != ""){
+      return WS.url(getNextServer() + "/rest/navigation/v1/list")
+        .withHeaders("Accept" -> "application/json")
+        .withQueryString(
+          "pageNumber" -> pageNumber.toString,
+          "kw" -> keyword,
+          "advertType" -> advertType,
+          "loadProducts" -> "true",
+          "withoutStock" -> "false",
+          "loadAdverts" -> "false",
+          "channel" -> "hackathon"
+        ).get()
+    }else if(category != ""){
+      return WS.url(getNextServer() + "/rest/navigation/v1/list")
+        .withHeaders("Accept" -> "application/json")
+        .withQueryString(
+          "pageNumber" -> pageNumber.toString,
+          "category" -> category,
+          "advertType" -> advertType,
+          "loadProducts" -> "true",
+          "withoutStock" -> "false",
+          "loadAdverts" -> "false",
+          "channel" -> "hackathon"
+        ).get()
+    }
+    return null
   }
 
 

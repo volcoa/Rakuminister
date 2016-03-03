@@ -1,4 +1,4 @@
-@(keyword: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
+@(keyword: String, category: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
 @cartButtonInner = {Détails <span class="glyphicon glyphicon-search"></span>}
 
 <div class="row">
@@ -77,42 +77,13 @@
 
             </div>
         </div>
-
-
-    <!--
-
-
-            <div class="pricetext">
-                <span class="price">@product.newBestPrice</span> Neuf
-</div>
-<div class="pricetext">
-    <span class="price">@product.usedBestPrice</span> Occaz'
-</div>
-
-
-<p>@product.bestPrice</p> best
-<p>@product.newBestPrice</p> Neuf
-<p>@product.usedBestPrice</p> Occaz
-<p>@product.collectibleBestPrice</p> Collection
-
-
-<p>@product.advertsCount</p>
-<p>@product.advertsNewCount</p>
-<p>@product.advertsUsedCount</p>
-<p>@product.advertsCollectibleCount</p>
-<p></p>
-<p>@product.topic</p>
-<p> /5</p>
-<p>@product.nbReviews</p>
-<p>@product.isMemo</p>
- -->
     }
 </div>
 @if(navigationResult.totalResultProductsCount > navigationResult.resultProductsCount) {
     <div class="clearfix nextPageButtonWrapper">
         <hr/>
         <div class="well center-block text-center">
-            <button type="button" class="btn btn-default btn-lg" onclick="example.NavigationAjaxJS().getNextProducts('@keyword', @navigationResult.nbPages)">
+            <button type="button" class="btn btn-default btn-lg" onclick="example.NavigationAjaxJS().getNextProducts('@keyword', '@category', @navigationResult.nbPages)">
                 Voir les prochains produits
             </button>
         </div>

@@ -7,11 +7,14 @@ GET           /                            controllers.Marketplace.index
 
 
 GET           /home                             controllers.Application.index
-GET           /s/:keyword                       controllers.Marketplace.search(keyword: String, pa: Int ?= 1, advertType: String ?="ALL", ajax: Boolean ?=false)
+GET           /s/:keyword                       controllers.Marketplace.nav(keyword: String, nav: String ?="", pa: Int ?= 1, advertType: String ?="ALL", ajax: Boolean ?=false)
+GET           /nav/:category                    controllers.Marketplace.nav(keyword: String ?="", category: String, pa: Int ?= 1, advertType: String ?="ALL", ajax: Boolean ?=false)
 GET           /offer/buy/:productId             controllers.Marketplace.productInfo(productId: Long, advertType: String ?="ALL", other: String?= "")
 GET           /offer/buy/:productId/$other<.*>  controllers.Marketplace.productInfo(productId: Long, advertType: String ?="ALL", other)
 GET           /completion/:keyword              controllers.Marketplace.completion(keyword: String)
-GET           /navajax/:keyword/:advertType/:pa  controllers.Marketplace.search(keyword: String, pa: Int, advertType: String, ajax: Boolean ?=true)
+GET           /navajax/:keyword/:advertType/:pa  controllers.Marketplace.nav(keyword: String, category: String ?="", pa: Int, advertType: String, ajax: Boolean ?=true)
+GET           /navajax/:keyword/:category/:advertType/:pa  controllers.Marketplace.nav(keyword: String, category: String, pa: Int, advertType: String, ajax: Boolean ?=true)
+GET           /navajax/:category/:advertType/:pa  controllers.Marketplace.nav(keyword: String ?="", category: String, pa: Int, advertType: String, ajax: Boolean ?=true)
 
 GET           /todos                       controllers.TodoController.index
 GET           /todos/all                   controllers.TodoController.all

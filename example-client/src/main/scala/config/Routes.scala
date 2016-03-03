@@ -32,6 +32,8 @@ object Routes {
 
   object NavigationAjax {
     val base = "/navajax"
-    def get(kw: String, advType: String, page: Int) = base + s"/$kw/$advType/$page"
+    def getSearch(kw: String, advType: String, page: Int) = base + s"/$kw/$advType/$page"
+    def getNav(category: String, advType: String, page: Int) = base + s"/$category/$advType/$page"
+    def getLocalSearch(kw: String, category: String, advType: String, page: Int) = base + s"/$kw/$category/$advType/$page"
   }
 }

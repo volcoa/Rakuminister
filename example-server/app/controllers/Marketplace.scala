@@ -44,10 +44,8 @@ object Marketplace extends Controller {
     }
   }
 
-  // URI : "/s/:keyword"
-  def search(keyword: String, pageNumber: Int, advertType: String, ajax: Boolean) = Action.async { implicit request =>
-
-    PMWebServices.searchWS(keyword, pageNumber, advertType)
+  def nav(keyword: String, category: String, pageNumber: Int, advertType: String, ajax: Boolean) = Action.async { implicit request =>
+    PMWebServices.navigationWS(keyword, pageNumber, advertType, category)
       .map(
         result => {
           var error:Boolean = false
@@ -77,11 +75,21 @@ object Marketplace extends Controller {
             Ok(views.html.oups(errorMessage))
           }
           else {
+            navigationResult.isLocalSearch = category != "" && keyword != ""
+            navigationResult.isSearch = category == "" && keyword != ""
+            navigationResult.isNav = category != "" && keyword == ""
+            val splittedCattegories = category.split("_")
+            if(splittedCattegories.size > 1){
+              navigationResult.formattedCategory = splittedCattegories(splittedCattegories.size - 1).toLowerCase.capitalize
+            }else{
+              navigationResult.formattedCategory = splittedCattegories(0).toLowerCase.capitalize
+            }
+
             if(ajax) {
-              Ok(views.html.tags.productListing(keyword, navigationResult))
+              Ok(views.html.tags.productListing(keyword, category, navigationResult))
             }
             else {
-              Ok(views.html.search(keyword, navigationResult))
+              Ok(views.html.search(keyword, category, navigationResult))
             }
           }
         }

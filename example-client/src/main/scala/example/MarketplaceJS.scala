@@ -41,7 +41,14 @@ object MarketplaceJS extends js.JSApp {
     $("#main-navbar-search-form").on("submit", (e: dom.Event) => {
       e.preventDefault()
       val keyword = $("#searchInput").value
-      dom.document.location.href = "/s/" + keyword
+      val selectedOption = $("#main-search-caterogy-selector option:selected")
+      val categorySelected = selectedOption.attr("data-cat") == "true"
+      if(categorySelected){
+        val category = selectedOption.attr("data-url")
+        dom.document.location.href = "/s/" + keyword + "?nav=" + category
+      }else{
+        dom.document.location.href = "/s/" + keyword
+      }
     });
   }
 
@@ -59,6 +66,7 @@ object MarketplaceJS extends js.JSApp {
     $("#searchInput").on("blur", (e: dom.Event) => {
       if(!mouseOverSuggestList){
         $("#suggestContainer").html("");
+        $("#suggestContainer").removeClass("active")
       }
     });
 
@@ -86,16 +94,30 @@ object NavigationAjaxJS extends {
   var currentPage = 1
   var totalPageCount = 1
 
-  def fetchData(keyword: String,advType: String, pageNumber: Int) = Ajax.get(Routes.NavigationAjax.get(keyword, advType, pageNumber))
+  def hasKeyword(kw: String) : Boolean = {
+    kw != null && kw != ""
+  }
 
-  def getProducts(keyword: String, advType: String, pageNumber: Int, removeNextProductButton: Boolean): Unit = {
+  def hasCategory(cat: String) : Boolean = {
+    cat != null && cat != ""
+  }
+
+  def fetchData(keyword: String, category: String, advType: String, pageNumber: Int) = {
+    if(hasKeyword(keyword) && hasCategory(category)){
+      Ajax.get(Routes.NavigationAjax.getLocalSearch(keyword, category, advType, pageNumber))
+    }else if(hasCategory(category)){
+      Ajax.get(Routes.NavigationAjax.getNav(category, advType, pageNumber))
+    }else{
+      Ajax.get(Routes.NavigationAjax.getSearch(keyword, advType, pageNumber))
+    }
+  }
+
+  def getProducts(keyword: String, category: String, advType: String, pageNumber: Int, removeNextProductButton: Boolean): Unit = {
       /* Changement de couleur du bouton sélectionné */
       $("#select-advtype-buttons button").removeClass("active");
       $("#select-advtype-button_"+advType).addClass("active");
 
-      println("page : " + pageNumber)
-      println("advtype : " + advType)
-      fetchData(keyword, advType, pageNumber).onSuccess {
+      fetchData(keyword, category, advType, pageNumber).onSuccess {
         case s =>
           val html = s.responseText
           if(pageNumber == 1){
@@ -111,18 +133,18 @@ object NavigationAjaxJS extends {
   }
 
   @JSExport
-  def getProductsByAdvertType(keyword: String, advType: String): Unit = {
+  def getProductsByAdvertType(keyword: String, category: String, advType: String): Unit = {
     this.advertType = advType
     this.currentPage = 1
-    getProducts(keyword, advType, 1, false)
+    getProducts(keyword, category, advType, 1, false)
   }
 
   @JSExport
-  def getNextProducts(keyword: String, totalPageCount: Int): Unit = {
+  def getNextProducts(keyword: String, category: String, totalPageCount: Int): Unit = {
     this.currentPage = this.currentPage + 1
     this.totalPageCount = totalPageCount
     val removeNextProductButton = this.currentPage >= this.totalPageCount
-    getProducts(keyword, this.advertType, this.currentPage, removeNextProductButton)
+    getProducts(keyword, category, this.advertType, this.currentPage, removeNextProductButton)
 
   }
 
@@ -139,7 +161,6 @@ object CompletionJS extends {
     val keyword = $("#searchInput").value.toString
     fetchData(keyword).onSuccess {
       case s =>
-        println(s)
         val suggestResult = read[List[String]](s.responseText)
         val kwBuff = ListBuffer[String]()
         for(i<-2 until suggestResult.size by 2){
@@ -158,6 +179,9 @@ object CompletionJS extends {
     target.appendChild(
       rebuildUI(target)
     )
+    $("#suggestContainer").addClass("active")
+    $("#suggestContainer").width($("#searchInput").width())
+
 
   }
 
