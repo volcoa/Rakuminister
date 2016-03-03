@@ -28,7 +28,7 @@ case class ProductInfo(
                         images: List[Images],
                         rspMinimumAmount: Double
                       ){
-  val formatter = new DecimalFormat("#.00");
+  val formatter = new DecimalFormat("0.00");
   val formattedBestPrice = formatter.format(bestPrice)
   val formattedNewBestPrice = formatter.format(newBestPrice)
   val formattedUsedBestPrice = formatter.format(usedBestPrice)
@@ -68,7 +68,7 @@ case class Advert(
                    images: List[Images],
                    rspMinimumAmount: Double
                  ){
-  val formatter = new DecimalFormat("#.00");
+  val formatter = new DecimalFormat("0.00");
   val formattedSalePrice = formatter.format(salePrice)
   val formattedShippingAmount = formatter.format(shippingAmount)
 }

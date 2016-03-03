@@ -45,7 +45,7 @@ case class Product(
                     imagesUrls: Option[Seq[String]],
                     isMemo: Boolean
                   ){
-  val formatter = new DecimalFormat("#.00");
+  val formatter = new DecimalFormat("0.00");
   val formattedBestPrice = formatter.format(bestPrice)
   val formattedNewBestPrice = formatter.format(newBestPrice)
   val formattedUsedBestPrice = formatter.format(usedBestPrice)
