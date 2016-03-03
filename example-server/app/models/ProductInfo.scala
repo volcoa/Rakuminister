@@ -19,7 +19,7 @@ case class ProductInfo(
                         advertsNewCount: Double,
                         advertsUsedCount: Double,
                         advertsCollectibleCount: Double,
-                        headline: String,
+                        headline: Option[String],
                         reviewsAverageNote: Double,
                         nbReviews: Double,
                         reviews: List[Review],
@@ -68,7 +68,7 @@ case class Advert(
 //                   quality: String,
                    //                     type: String,
                    images: List[Images],
-                   rspMinimumAmount: Double
+                   rspMinimumAmount: Option[Double]
                  ){
   val dfs = new DecimalFormatSymbols(Locale.FRANCE);
   dfs.setGroupingSeparator(' ');
