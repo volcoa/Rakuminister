@@ -39,7 +39,7 @@ case class Product(
                     advertsCollectibleCount: Int,
                     headline: String,
                     caption: Option[String],
-                    topic: String,
+                    topic: Option[String],
                     reviewsAverageNote: Double,
                     nbReviews: Long,
                     imagesUrls: Option[Seq[String]],
