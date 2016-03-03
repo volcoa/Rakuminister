@@ -4,9 +4,10 @@
 * Layout general style
 */
 
-body{
-}
-
 .uiHide{
     visibility: hidden;
+}
+
+.unbrokable-space {
+    white-space:nowrap;
 }

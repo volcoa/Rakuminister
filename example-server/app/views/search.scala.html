@@ -6,12 +6,15 @@
 @content = {
 
     @if(navigationResult.products.size == 0){
-        <h1>Pas de résultats pour "<em>@keyword</em>"</h1>
+        <div class="well center-block text-center">
+            <h1>Pas de résultats pour <br/>« <em>@keyword</em> »</h1>
+        </div>
     }else{
-        <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
 
         <div class="well center-block text-center">
-            <div id="select-advtype-buttons" class="btn-group btn-group-lg" role="group" aria-label="...">
+            <h1>Résultats de recherche pour <br/><span class="unbrokable-space">« </span><em>@keyword</em><span class="unbrokable-space"> »</span></h1>
+
+            <div id="select-advtype-buttons" class="btn-group" role="group" aria-label="...">
 
                 <button id="select-advtype-button_ALL" type="button" class="btn btn-default active" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'ALL')">Tout</button>
 

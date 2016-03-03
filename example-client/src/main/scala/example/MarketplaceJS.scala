@@ -101,10 +101,10 @@ object NavigationAjaxJS extends {
           if(pageNumber == 1){
             $("#productListing").html(html)
           }else{
-            $("#nextPageButton").remove()
+            $(".nextPageButtonWrapper").remove()
             $("#productListing").append(html)
             if(removeNextProductButton){
-              $("#nextPageButton").remove()
+              $(".nextPageButtonWrapper").remove()
             }
           }
        }

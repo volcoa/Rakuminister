@@ -1,75 +1,85 @@
 @(keyword: String, navigationResult: NavigationResult)(implicit request: RequestHeader)
+@cartButtonInner = {Détails <span class="glyphicon glyphicon-search"></span>}
 
 <div class="row">
     @for((product, index) <- navigationResult.products.zipWithIndex) {
-    @if((index>0)) {
-    <div class="clearfix visible-xs-block"></div>
-    <hr class="visible-xs-block"/>
-    }
-    @if((index+1)%2==1) {
-    <div class="clearfix visible-sm-block"></div>
-    <hr class="visible-sm-block"/>
-    }
-    @if((index+1)%4==1) {
-    <div class="clearfix visible-md-block"></div>
-    <hr class="visible-md-block"/>
-    }
-    @if((index+1)%6==1) {
-    <div class="clearfix visible-lg-block"></div>
-    <hr class="visible-lg-block"/>
-    }
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
-        <div class="productbox">
+        <div class="clearfix visible-xs-block"></div>
+        <hr class="visible-xs-block"/>
+        @if((index+1)%2==1) {
+            <div class="clearfix visible-sm-block"></div>
+            <hr class="visible-sm-block"/>
+        }
+        @if((index+1)%4==1) {
+            <div class="clearfix visible-md-block"></div>
+            <hr class="visible-md-block"/>
+        }
+        @if((index+1)%6==1) {
+            <div class="clearfix visible-lg-block"></div>
+            <hr class="visible-lg-block"/>
+        }
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div class="productbox">
 
-            <div class="row">
+                <div class="row">
 
-                <div class="product-title" title="@product.headline">
-                    @product.headline
-                </div>
-                <div class="product-img-wrapper col-xs-6 col-sm-12">
-                    <a href="/offer/buy/@product.id/@product.urlName">
-                        <img width="120" height="120" src="@product.imagesUrls"  class="img-responsive product-img"/>
-                    </a>
-                </div>
+                    <div class="product-title" title="@product.headline">
+                        @product.headline
+                    </div>
+                    <div class="product-subtitle text-muted" title="@product.caption">
+                        @if(!product.caption.isEmpty) {
+                                @product.caption
+                        }else{
+                        &#8239;
+                        }
+                    </div>
+                    <div class="product-img-wrapper col-xs-6 col-sm-12">
+                        <a href="/offer/buy/@product.id/@product.urlName">
+                            <img width="120" height="120" src="@product.imagesUrls"  class="img-responsive product-img"/>
+                        </a>
+                    </div>
 
-                <div class="buy-price-box-wrapper col-xs-6 col-sm-12">
-                    <div class="buy-price-box">
+                    <div class="buy-price-box-wrapper col-xs-6 col-sm-12">
+                        <div class="buy-price-box">
 
-                        <div class="starsbox">
-                            @for(incr <- 1 to 5){
-                            @if(product.reviewsAverageNote >= incr) {
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            } else {
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            }
-                            }
-                        </div>
-                        <div class="price-wrapper">
-                            <span class="price">@product.formattedBestPrice</span>
-                        </div>
-                        <div class="productprice">
-                            <div class="visible-xs-block">
-                                <a href="#" class="btn btn-primary btn-sx " role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            <div class="starsbox">
+                                @for(incr <- 1 to 5){
+                                    @if(product.reviewsAverageNote >= incr) {
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    } else {
+                                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    }
+                                }
                             </div>
-                            <div class="visible-sm-block">
-                                <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            <div class="price-wrapper">
+                                <span class="price">@product.formattedBestPrice €</span>
                             </div>
-                            <div class="visible-md-block">
-                                <a href="#" class="btn btn-primary btn-sm btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
-                            </div>
-                            <div class="visible-lg-block">
-                                <a href="#" class="btn btn-primary btn-block" role="button">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            <div class="productprice">
+                                <div class="visible-xs-block">
+                                    <a href="/offer/buy/@product.id/@product.urlName" class="btn btn-danger btn-sx add-to-cart-button" role="button">
+                                        @cartButtonInner
+                                    </a>
+                                </div>
+                                <div class="visible-sm-block visible-md-block">
+                                    <a href="/offer/buy/@product.id/@product.urlName" class="btn btn-danger btn-sm btn-block add-to-cart-button" role="button">
+                                        @cartButtonInner
+                                    </a>
+                                </div>
+                                <div class="visible-lg-block">
+                                    <a href="/offer/buy/@product.id/@product.urlName" class="btn btn-danger btn-block add-to-cart-button" role="button">
+                                        @cartButtonInner
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-
         </div>
-    </div>
-    <!--
 
+
+    <!--
 
 
             <div class="pricetext">
@@ -90,17 +100,22 @@
 <p>@product.advertsNewCount</p>
 <p>@product.advertsUsedCount</p>
 <p>@product.advertsCollectibleCount</p>
-<p>@product.caption</p>
+<p></p>
 <p>@product.topic</p>
 <p> /5</p>
 <p>@product.nbReviews</p>
 <p>@product.isMemo</p>
-
--->
+ -->
     }
 </div>
 @if(navigationResult.totalResultProductsCount > navigationResult.resultProductsCount) {
-    <button id="nextPageButton" onclick="example.NavigationAjaxJS().getNextProducts('@keyword', @navigationResult.nbPages)">
-        Voir les prochains produits
-    </button>
+    <div class="clearfix nextPageButtonWrapper">
+        <hr/>
+        <div class="well center-block text-center">
+            <button type="button" class="btn btn-default btn-lg" onclick="example.NavigationAjaxJS().getNextProducts('@keyword', @navigationResult.nbPages)">
+                Voir les prochains produits
+            </button>
+        </div>
+    </div>
 }
+

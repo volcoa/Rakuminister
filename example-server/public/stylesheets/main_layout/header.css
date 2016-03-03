@@ -105,13 +105,12 @@
                         height:44px;
                     }
                         #main-navbar-collapse-wrapper .navbar-nav li a
-                        , #main-navbar-collapse-wrapper .navbar-nav li.active a
-                        , #main-navbar-collapse-wrapper .navbar-nav li span.no-link-text{
+                        , #main-navbar-collapse-wrapper .navbar-nav li.active a{
                             background:transparent;
                             color:white;
                             padding:12px;
-                            padding-left:14px;
-                            padding-right:14px;
+                            padding-left:10px;
+                            padding-right:10px;
                             display:inline-block;
                         }
                         #main-navbar-collapse-wrapper .navbar-nav li a
@@ -206,25 +205,71 @@
 
 /* Between SM & MD */
 @media (min-width: 890px) {
+    #main-search-caterogy-wrapper
+    , #main-search-input-wrapper
+    , #main-navbar-collapse-wrapper .navbar-nav li a
+    , #main-navbar-collapse-wrapper .navbar-nav li.active a {
+        padding-right:7px;
+        padding-left:7px;
+    }
     #searchInput {
-        width:300px;
+        width:280px;
     }
 }
 /* MD */
 @media (min-width: 992px) {
     #searchInput {
-        width:380px;
+        width:350px;
+    }
+    #main-search-caterogy-wrapper
+    , #main-search-input-wrapper
+    , #main-navbar-collapse-wrapper .navbar-nav li a
+    , #main-navbar-collapse-wrapper .navbar-nav li.active a {
+        padding-right:10px;
+        padding-left:10px;
     }
 }
 /* Between MD & LG */
 @media (min-width: 1080px) {
     #searchInput {
-        width:450px;
+        width:440px;
     }
 }
 /* LG */
 @media (min-width: 1200px) {
     #searchInput {
-        width:580px;
+        width:570px;
+    }
+}
+/* Greater than LG */
+@media (min-width: 1400px) {
+    #searchInput {
+        width:700px;
+    }
+}
+/* Giant */
+@media (min-width: 1600px) {
+    #searchInput {
+        width:900px;
+    }
+    #main-search-caterogy-wrapper
+    , #main-search-input-wrapper
+    , #main-navbar-collapse-wrapper .navbar-nav li a
+    , #main-navbar-collapse-wrapper .navbar-nav li.active a {
+        padding-right:15px;
+        padding-left:15px;
+    }
+}
+/* Super-Giant */
+@media (min-width: 1800px) {
+    #searchInput {
+        width:1100px;
+    }
+    #main-search-caterogy-wrapper
+    , #main-search-input-wrapper
+    , #main-navbar-collapse-wrapper .navbar-nav li a
+    , #main-navbar-collapse-wrapper .navbar-nav li.active a {
+        padding-right:18px;
+        padding-left:18px;
     }
 }
