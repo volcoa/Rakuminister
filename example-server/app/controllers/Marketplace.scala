@@ -148,7 +148,11 @@ object Marketplace extends Controller {
             Ok("")
           }
         }
-      );
+      ).recover {
+      case _ =>
+        Logger.logger.error("An error occured")
+        Ok("")
+    };
   }
 
  /* def computeCategories(): Unit ={
