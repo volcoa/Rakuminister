@@ -5,8 +5,17 @@ import play.api.libs.json.Json
 case class NavigationResult(
                    title: String,
                    keyword: String,
-                   products: Seq[Product]
-                 )
+                   products: Seq[Product],
+                   resultProductsCount: Long,
+                   totalResultProductsCount: Long,
+                   hasNewProducts: Boolean,
+                   hasUsedProducts: Boolean
+                 ){
+  var nbPages = 1
+  if(totalResultProductsCount > 20){
+    nbPages = math.ceil(totalResultProductsCount / 20).toInt
+  }
+}
 object NavigationResult {
   implicit val productJsonFormat = Json.format[Product]
   implicit val navigationResultJsonFormat = Json.format[NavigationResult]

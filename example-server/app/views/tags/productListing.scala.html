@@ -94,9 +94,13 @@
 <p>@product.topic</p>
 <p> /5</p>
 <p>@product.nbReviews</p>
-@*<p>@product.attributes</p>*@
 <p>@product.isMemo</p>
 
 -->
     }
 </div>
+@if(navigationResult.totalResultProductsCount > navigationResult.resultProductsCount) {
+    <button id="nextPageButton" onclick="example.NavigationAjaxJS().getNextProducts('@keyword', @navigationResult.nbPages)">
+        Voir les prochains produits
+    </button>
+}

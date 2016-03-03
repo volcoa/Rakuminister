@@ -9,9 +9,19 @@
         <h1>Pas de résultats pour "<em>@keyword</em>"</h1>
     }else{
         <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
-        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'ALL', 1)">Tout</button>
-        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'NEW', 1)">NEUF</button>
-        <button onclick="example.NavigationAjaxJS().getProducts('@keyword', 'USED', 1)">OCCASION</button>
+
+        <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'ALL')">Tout</button>
+        @if(navigationResult.hasNewProducts){
+            <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'NEW')">Neuf</button>
+        }else{
+            <button disabled>NEUF</button>
+        }
+        @if(navigationResult.hasUsedProducts){
+            <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'USED')">Occasion</button>
+        }else{
+            <button disabled>OCCASION</button>
+        }
+
 
         <div id="productListing" class="content-fluid">
             @tags.productListing(keyword, navigationResult)

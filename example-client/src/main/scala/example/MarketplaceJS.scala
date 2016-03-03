@@ -76,24 +76,50 @@ object MarketplaceJS extends js.JSApp {
       mouseOverSuggestList = false
     });
   }
+
 }
 
 @JSExport
 object NavigationAjaxJS extends {
 
+  var advertType = "ALL"
+  var currentPage = 1
+  var totalPageCount = 1
+
   def fetchData(keyword: String,advType: String, pageNumber: Int) = Ajax.get(Routes.NavigationAjax.get(keyword, advType, pageNumber))
 
-  @JSExport
-  def getProducts(keyword: String, advType: String, pageNumber: Int): Unit = {
+  def getProducts(keyword: String, advType: String, pageNumber: Int, removeNextProductButton: Boolean): Unit = {
+      println("page : " + pageNumber)
+      println("advtype : " + advType)
       fetchData(keyword, advType, pageNumber).onSuccess {
         case s =>
           val html = s.responseText
           if(pageNumber == 1){
             $("#productListing").html(html)
           }else{
+            $("#nextPageButton").remove()
             $("#productListing").append(html)
+            if(removeNextProductButton){
+              $("#nextPageButton").remove()
+            }
           }
        }
+  }
+
+  @JSExport
+  def getProductsByAdvertType(keyword: String, advType: String): Unit = {
+    this.advertType = advType
+    this.currentPage = 1
+    getProducts(keyword, advType, 1, false)
+  }
+
+  @JSExport
+  def getNextProducts(keyword: String, totalPageCount: Int): Unit = {
+    this.currentPage = this.currentPage + 1
+    this.totalPageCount = totalPageCount
+    val removeNextProductButton = this.currentPage >= this.totalPageCount
+    getProducts(keyword, this.advertType, this.currentPage, removeNextProductButton)
+
   }
 
 }
