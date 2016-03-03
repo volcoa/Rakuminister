@@ -24,7 +24,7 @@ case class ProductInfo(
                         nbReviews: Double,
                         reviews: List[Review],
                         productDetailTitle: String,
-                        description: String,
+                        description: Option[String],
                         images: List[Images],
                         rspMinimumAmount: Double
                       ){

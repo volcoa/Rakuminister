@@ -51,9 +51,11 @@
   </div>
 
   @* Fiche technique *@
+  @if(productInfo.description.isDefined) {
   <p>
-    @Html(productInfo.description)
+    @Html(productInfo.description.get)
   </p>
+  }
 }
 
 @templates.layout("Rakuten France", content = content, header = header)
