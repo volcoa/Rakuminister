@@ -26,6 +26,7 @@ lazy val exampleServer = (project in file("example-server")).settings(
     "org.webjars" % "bootstrap" % "3.3.5",
     "org.webjars" % "jquery" % "2.1.4",
     "org.webjars" % "font-awesome" % "4.4.0",
+    "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     specs2 % Test,
     "org.scalatest" % "scalatest_2.11" % "2.2.6" % "test"
   )

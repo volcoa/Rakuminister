@@ -1,17 +1,26 @@
 package controllers
 
-import models.{NavigationResult, Product, ProductInfo}
+import java.io.InputStream
+
+import models.{NavigationResult, ProductInfo}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
-import shared.SharedMessages
 import webservices.PMWebServices
 
 object Marketplace extends Controller {
 
   // URI : "/"
-  def index = Action { implicit request =>
-    Ok(views.html.home(SharedMessages.itWorks))
+  def index = Action.async { implicit request =>
+
+    PMWebServices.cmsWS()
+      .map(
+        result => {
+          val responseBody: String = result.body
+          val jahiaRepsonseAsXml = scala.xml.XML.withSAXParser(new org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl().newSAXParser()).loadString(responseBody)
+          Ok(views.html.home((jahiaRepsonseAsXml \\ "body").toString()))
+        }
+      )
   }
 
   // URI : "/s/:keyword"

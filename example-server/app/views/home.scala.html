@@ -1,7 +1,8 @@
-@(message: String)(implicit request: RequestHeader)
+@(merch: String)(implicit request: RequestHeader)
 
 @content = {
-  <h1>Page d'accueil</h1>
-  <p>Contenu :<em>@message</em></p>
+
+  @Html(merch)
+
 }
 @templates.layout("Rakuten France", content = content)
