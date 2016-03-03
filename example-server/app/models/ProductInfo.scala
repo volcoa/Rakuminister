@@ -1,6 +1,6 @@
 package models
 
-import java.text.DecimalFormat
+import java.text.{DecimalFormatSymbols, DecimalFormat}
 import java.util.{Locale, Currency}
 
 import play.api.libs.json.Json
@@ -28,7 +28,9 @@ case class ProductInfo(
                         images: List[Images],
                         rspMinimumAmount: Double
                       ){
-  val formatter = new DecimalFormat("0.00");
+  val dfs = new DecimalFormatSymbols(Locale.FRANCE);
+  dfs.setGroupingSeparator(' ');
+  val formatter = new DecimalFormat("#,##0.00", dfs);
   val formattedBestPrice = formatter.format(bestPrice)
   val formattedNewBestPrice = formatter.format(newBestPrice)
   val formattedUsedBestPrice = formatter.format(usedBestPrice)
@@ -68,7 +70,9 @@ case class Advert(
                    images: List[Images],
                    rspMinimumAmount: Double
                  ){
-  val formatter = new DecimalFormat("0.00");
+  val dfs = new DecimalFormatSymbols(Locale.FRANCE);
+  dfs.setGroupingSeparator(' ');
+  val formatter = new DecimalFormat("#,##0.00", dfs);
   val formattedSalePrice = formatter.format(salePrice)
   val formattedShippingAmount = formatter.format(shippingAmount)
 }

@@ -1,6 +1,6 @@
 package models
 
-import java.text.DecimalFormat
+import java.text.{DecimalFormatSymbols, DecimalFormat}
 import java.util.{Currency, Locale}
 
 import play.api.libs.json.Json
@@ -45,7 +45,9 @@ case class Product(
                     imagesUrls: Option[Seq[String]],
                     isMemo: Boolean
                   ){
-  val formatter = new DecimalFormat("0.00");
+  val dfs = new DecimalFormatSymbols(Locale.FRANCE);
+  dfs.setGroupingSeparator(' ');
+  val formatter = new DecimalFormat("#,##0.00", dfs);
   val formattedBestPrice = formatter.format(bestPrice)
   val formattedNewBestPrice = formatter.format(newBestPrice)
   val formattedUsedBestPrice = formatter.format(usedBestPrice)
