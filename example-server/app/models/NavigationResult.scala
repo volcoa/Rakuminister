@@ -1,5 +1,8 @@
 package models
 
+import java.text.DecimalFormat
+import java.util.{Currency, Locale}
+
 import play.api.libs.json.Json
 
 case class NavigationResult(
@@ -41,4 +44,10 @@ case class Product(
                     nbReviews: Long,
                     imagesUrls: Option[Seq[String]],
                     isMemo: Boolean
-                  )
+                  ){
+  val formatter = new DecimalFormat("#.00");
+  val formattedBestPrice = formatter.format(bestPrice)
+  val formattedNewBestPrice = formatter.format(newBestPrice)
+  val formattedUsedBestPrice = formatter.format(usedBestPrice)
+  val formattedCollectibleBestPrice = formatter.format(collectibleBestPrice)
+}

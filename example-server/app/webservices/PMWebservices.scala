@@ -91,6 +91,14 @@ object PMWebServices {
       .get()
   }
 
+  // "http://cms-dev-01:8080/cms/render/default/fr/sites/mobwebapp/seocategories.html"
+  def categoriesWS() : Future[WSResponse] = {
+
+    WS.url("http://cms-dev-01:8080/cms/render/default/fr/sites/mobwebapp/seocategories.html")
+      .withHeaders("Accept" -> "application/json")
+      .get()
+  }
+
 
   // http://cms-dev-01:8080/cms/render/live/fr/sites/priceminister/home/hackathon-play.html
   def cmsWS() : Future[WSResponse] = {

@@ -89,4 +89,15 @@ object Marketplace extends Controller {
         }
       );
   }
+
+ /* def computeCategories(): Unit ={
+    PMWebServices.categoriesWS()
+      .map(
+        result => {
+          val json = result.json
+          json.
+          Ok(result.json.toString())
+        }
+      );
+  }*/
 }

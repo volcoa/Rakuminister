@@ -29,7 +29,7 @@
     @for((advert, index) <- productInfo.adverts.zipWithIndex) {
       <div class="row">
         <div class="col-xs-2">
-          @advert.salePrice - @advert.shippingAmount
+          @advert.formattedSalePrice - @advert.formattedShippingAmount
         </div>
         <div class="col-xs-6">
           @advert.sellerComment

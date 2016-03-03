@@ -1,5 +1,8 @@
 package models
 
+import java.text.DecimalFormat
+import java.util.{Locale, Currency}
+
 import play.api.libs.json.Json
 
 case class ProductInfo(
@@ -24,7 +27,14 @@ case class ProductInfo(
                         description: String,
                         images: List[Images],
                         rspMinimumAmount: Double
-                      )
+                      ){
+  val formatter = new DecimalFormat("#.00");
+  val formattedBestPrice = formatter.format(bestPrice)
+  val formattedNewBestPrice = formatter.format(newBestPrice)
+  val formattedUsedBestPrice = formatter.format(usedBestPrice)
+  val formattedCollectibleBestPrice = formatter.format(collectibleBestPrice)
+
+}
 
 object ProductInfo {
 
@@ -57,7 +67,11 @@ case class Advert(
                    //                     type: String,
                    images: List[Images],
                    rspMinimumAmount: Double
-                 )
+                 ){
+  val formatter = new DecimalFormat("#.00");
+  val formattedSalePrice = formatter.format(salePrice)
+  val formattedShippingAmount = formatter.format(shippingAmount)
+}
 
   case class Seller(
                      id: Double,
@@ -111,3 +125,9 @@ case class Entry(
                   size: String,
                   url: String
                 )
+
+case class Category(
+                     label: String,
+                     url: String,
+                     children: List[Category]
+)
