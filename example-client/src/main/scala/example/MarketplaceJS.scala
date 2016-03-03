@@ -89,6 +89,10 @@ object NavigationAjaxJS extends {
   def fetchData(keyword: String,advType: String, pageNumber: Int) = Ajax.get(Routes.NavigationAjax.get(keyword, advType, pageNumber))
 
   def getProducts(keyword: String, advType: String, pageNumber: Int, removeNextProductButton: Boolean): Unit = {
+      /* Changement de couleur du bouton sélectionné */
+      $("#select-advtype-buttons button").removeClass("active");
+      $("#select-advtype-button_"+advType).addClass("active");
+
       println("page : " + pageNumber)
       println("advtype : " + advType)
       fetchData(keyword, advType, pageNumber).onSuccess {

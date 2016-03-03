@@ -10,17 +10,24 @@
     }else{
         <h1>Résultats de recherche pour "<em>@keyword</em>"</h1>
 
-        <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'ALL')">Tout</button>
-        @if(navigationResult.hasNewProducts){
-            <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'NEW')">Neuf</button>
-        }else{
-            <button disabled>NEUF</button>
-        }
-        @if(navigationResult.hasUsedProducts){
-            <button onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'USED')">Occasion</button>
-        }else{
-            <button disabled>OCCASION</button>
-        }
+        <div class="well center-block text-center">
+            <div id="select-advtype-buttons" class="btn-group btn-group-lg" role="group" aria-label="...">
+
+                <button id="select-advtype-button_ALL" type="button" class="btn btn-default active" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'ALL')">Tout</button>
+
+                @if(navigationResult.hasNewProducts){
+                    <button id="select-advtype-button_NEW" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'NEW')">Neuf</button>
+                }else{
+                    <button type="button" disabled="disabled" class="btn btn-default">Neuf</button>
+                }
+
+                @if(navigationResult.hasUsedProducts){
+                    <button id="select-advtype-button_USED" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', 'USED')">Occasion</button>
+                }else{
+                    <button type="button" disabled="disabled" class="btn btn-default">Occasion</button>
+                }
+            </div>
+        </div>
 
 
         <div id="productListing" class="content-fluid">
