@@ -1,8 +1,5 @@
 
-
-/*
-* Layout Header
-*/
+/* Suggest list */
 #suggestContainer {
     position: absolute;
     background-color:#e8e8e8;
@@ -19,6 +16,10 @@
     margin-right:15px;
 }
 
+
+/*
+* Layout Header
+*/
 #navbar-wrapper {
     padding-bottom:0;
     margin-bottom:0;
@@ -48,11 +49,10 @@
         margin-bottom:0;
     }
         #real-nav-bar > div.navbar-header {
-            padding-left:15px;
-            padding-right:15px;
         }
             #main-navbar-collapse-wrapper {
                 background-color:#bf0000;
+            width:100%;
             }
                 #main-navbar-collapse-wrapper .navbar-nav {
                     display:inline;
@@ -71,8 +71,8 @@
 
                     /* Recherche */
                     #main-search-caterogy-wrapper {
-                        padding-right:14px;
-                        padding-left:14px;
+                        padding-right:6px;
+                        padding-left:6px;
                     }
                         #main-search-caterogy-wrapper {
                             width:100%;
@@ -83,8 +83,8 @@
                                 width:100%;
                             }
                     #main-search-input-wrapper {
-                        padding-right:14px;
-                        padding-left:14px;
+                        padding-right:6px;
+                        padding-left:6px;
                     }
                         #main-search-input {
                             width:100%;
@@ -118,10 +118,6 @@
                         , #main-navbar-collapse-wrapper .navbar-nav li.active a{
                             font-weight:bold;
                         }
-                        #main-navbar-collapse-wrapper .navbar-nav li span.no-link-text{
-                            padding-left:4px;
-                            padding-right:4px;
-                        }
                         #main-navbar-collapse-wrapper .navbar-nav li a:hover{
                             background:#af0000;
                         }
@@ -137,7 +133,7 @@
 
 
 /* XS */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     #navbar-wrapper {
         height:182px;
@@ -152,14 +148,25 @@
          }
             #real-nav-bar > div.navbar-header {
                 height:104px;
+                padding-left:15px;
+                padding-right:15px;
             }
                 #main-navbar-collapse-wrapper {
                     background-color:#bf0000;
                     border:none;
                     z-index:2;
-                    position:relative;
-                    top:-145px;
+                    position:absolute;
+                    top:70px;
+                    right:0px;
+                    margin:0;
+                    padding-left:22px;
+                    padding-right:22px;
+                    width:100%;
                 }
+                    #main-navbar-collapse-wrapper .navbar-right li a {
+                        width:100%;
+                    }
+
                 /* Recherche */
                 #main-navbar-search-form {
                     margin-bottom:0;
@@ -176,8 +183,9 @@
                         }
                         /* Bouton toogle (en vue mobile) */
                         #toogle-main-nav-button {
-                            position:relative;
-                            top:-158px;
+                            position:absolute;
+                            top:18px;
+                            right:14px;
                             z-index:4;
                             margin:0;
                             margin-bottom:6px;
@@ -192,4 +200,31 @@
                             background-color:#bf0000;;
                             color:white;
                         }
+}
+
+
+
+/* Between SM & MD */
+@media (min-width: 890px) {
+    #searchInput {
+        width:300px;
+    }
+}
+/* MD */
+@media (min-width: 992px) {
+    #searchInput {
+        width:380px;
+    }
+}
+/* Between MD & LG */
+@media (min-width: 1080px) {
+    #searchInput {
+        width:450px;
+    }
+}
+/* LG */
+@media (min-width: 1200px) {
+    #searchInput {
+        width:580px;
+    }
 }
