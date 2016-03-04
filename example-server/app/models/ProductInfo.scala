@@ -131,9 +131,13 @@ case class Images(
                    id: Double
                  ) {
   var fullSizeUrl: String = null
+  var smallSizeUrl: String = null
   for(entry <- imagesUrls.entry) {
     if (entry.size.equals("ORIGINAL")){
       fullSizeUrl = entry.url
+    }
+    if(entry.size.equals("SMALL")){
+      smallSizeUrl = entry.url
     }
   }
 }
