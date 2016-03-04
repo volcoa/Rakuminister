@@ -51,7 +51,21 @@
                                 }
                             </div>
                             <div class="price-wrapper">
-                                <span class="price">@product.formattedBestPrice €</span>
+                                <span class="price new-price">
+                                    @if(product.newBestPrice > 0 && navigationResult.hasNewProducts) {
+                                        @product.formattedNewBestPrice € <em style="font-size: x-small">en neuf</em>
+                                    }
+                                    &nbsp;
+                                </span>
+                            </div>
+
+                            <div class="price-wrapper">
+                                <span class="price used-price">
+                                    @if(product.usedBestPrice > 0 && navigationResult.hasUsedProducts) {
+                                        @product.formattedUsedBestPrice € <em style="font-size: x-small">d'occasion</em>
+                                    }
+                                    &nbsp;
+                                </span>
                             </div>
                             <div class="productprice">
                                 <div class="visible-xs-block">

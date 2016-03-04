@@ -48,8 +48,14 @@
         .price-wrapper {
         }
             .buy-price-box .price {
-                font-size:1.3em;
+                font-size:1em;
             }
+                .used-price {
+                    color: red;
+                }
+                .new-price {
+                    color: blueviolet;
+                }
 
 /* XS */
 @media (max-width: 767px) {
