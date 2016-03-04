@@ -60,13 +60,28 @@
                             </div>
 
                             <div class="price-wrapper">
-                                <span class="price used-price">
-                                    @if(product.usedBestPrice > 0 && navigationResult.hasUsedProducts) {
+                                @if(product.usedBestPrice > 0 && navigationResult.hasUsedProducts) {
+                                    <span class="price used-price">
                                         @product.formattedUsedBestPrice € <em style="font-size: x-small">d'occasion</em>
+                                            &nbsp;
+                                    </span>
+                                } else {
+                                    @if(product.newBestPrice == 0 && product.usedBestPrice == 0 && product.collectibleBestPrice > 0) {
+                                        <div class="price-wrapper">
+                                            <span class="price collectible-price">
+                                                @product.formattedCollectibleBestPrice € <em style="font-size: x-small">collection</em>
+                                            </span>
+                                        </div>
+                                    } else {
+                                        <div class="price-wrapper">
+                                            <span class="price">
+                                                &nbsp;
+                                            </span>
+                                        </div>
                                     }
-                                    &nbsp;
-                                </span>
+                                }
                             </div>
+
                             <div class="productprice">
                                 <div class="visible-xs-block">
                                     <a href="/offer/buy/@product.id/@product.urlName" class="btn btn-danger btn-sx add-to-cart-button" role="button">
