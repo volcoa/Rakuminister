@@ -1,8 +1,10 @@
 @(merch: String)(implicit request: RequestHeader)
 
 @content = {
-  <div class="col-sm-offset-1 col-sm-10  col-md-offset-3 col-md-6 ">
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10  col-md-offset-3 col-md-6">
     @Html(merch)
   </div>
+</div>
 }
 @templates.layout("Rakuten France", content = content)
