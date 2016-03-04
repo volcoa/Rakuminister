@@ -120,8 +120,10 @@ object NavigationAjaxJS extends {
       fetchData(keyword, category, advType, pageNumber).onSuccess {
         case s =>
           val html = s.responseText
+
           if(pageNumber == 1){
             $("#productListing").html(html)
+            $("#filtersbar").html($("#ajaxFilters").html());
           }else{
             $(".nextPageButtonWrapper").remove()
             $("#productListing").append(html)

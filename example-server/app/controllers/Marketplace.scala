@@ -89,6 +89,9 @@ object Marketplace extends Controller {
             }
 
             if(ajax) {
+              if(pageNumber == 1){
+                navigationResult.reloadFilters = true
+              }
               Ok(views.html.tags.productListing(keyword, category, navigationResult))
             }
             else {

@@ -104,3 +104,46 @@
     </div>
 }
 
+@if(navigationResult.reloadFilters){
+    <div id="ajaxFilters" style="display:none">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div>
+                        <a class="navbar-brand" href="#">Filtres</a>
+                    </div>
+                    <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#main-nav-categories">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="main-nav-categories">
+                    <div class="clearfix"></div>
+                    <div class="list-group">
+                        @if(navigationResult.isLocalSearch){
+                            <a class="deleteFilter list-group-item" href="/nav/@category">Supprimer "@keyword"</a>
+                            <a class="deleteFilter list-group-item" href="/s/@keyword">Supprimer "@navigationResult.formattedCategory"</a>
+                        }
+                        @if(navigationResult.isNav && navigationResult.removeLastCategoryUrl != ""){
+                            <a class="deleteFilter list-group-item" href="/nav/@navigationResult.removeLastCategoryUrl">Supprimer la dernière catégorie</a>
+                        }
+                        @for(cat <- navigationResult.categories){
+                            @if(navigationResult.isSearch || navigationResult.isLocalSearch){
+                                <a href="/s/@keyword?nav=@cat.name" class="list-group-item">@cat.label (@cat.productsCount)</a>
+                            }else{
+                                <a href="/nav/@cat.name" class="list-group-item">@cat.label (@cat.productsCount)</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+}
+
+
