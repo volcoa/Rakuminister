@@ -55,10 +55,17 @@
                 <div class="product-adverts">
                     <div>
                         <ul class="nav nav-tabs" role="tablist">
+                      @if(productInfo.buybox != null) {
+                          <li role="presentation" class="active">
+                            <a href="#buybox" aria-controls="home" role="tab" data-toggle="tab">Vendeur recommandé<br/> <span class="price">@productInfo.buybox.formattedSalePrice
+                              € (occasion)</span></a>
+                          </li>
+                      }
+                          @if(productInfo.buybox == null) {
                             <li role="presentation" class="active">
-                                <a href="#buybox" aria-controls="home" role="tab" data-toggle="tab">Vendeur recommandé<br/><span class="price">@productInfo.buybox.formattedSalePrice € (occasion)</span></a>
-                            </li>
-                            <li role="presentation">
+                        } else {
+                          <li role="presentation">
+                      }
                                 <a href="#marketplace" aria-controls="profile" role="tab" data-toggle="tab">Autres vendeurs<br/>dès <span class="price">458€</span></a></li>
                             <li role="presentation" class="vendre visible-lg visible-md" style="float: right">
                                 <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">Vendre<span class="caret"></span></a>
@@ -66,32 +73,38 @@
                             </li>
                         </ul>
                         <div class="tab-content">
+                          @if(productInfo.buybox != null) {
                             <div role="tabpanel" class="tab-pane fade in active" id="buybox">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="advert-price">
-                                            <p class="price">@productInfo.buybox.formattedSalePrice € <span style="font-size: 17px">(@productInfo.buybox.state)</span></p>
-                                            <p class="xcb">ou 3 x <span>68,33 €</span> par carte bancaire<br/>
-                                            ou 5 x <span>42,58 €</span> avec 1euro.com</p>
-                                            <span class="super-points" style="background-image: url(@routes.Assets.at("images/rsp.png"));">@productInfo.buybox.rspMinimumAmount Super Points</span> à cumuler
-                                        </div>
-                                        <div class="advert-seller comment">
-                                            <img src="@routes.Assets.at("images/avatars/Loki.png")" />
-                                            <p>" @productInfo.buybox.sellerComment "</p>
-                                            <a href="">Négocier le prix</a> - <a href="">Voir la boutique du vendeur</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="advert-shipping">
-                                            <p><strong>En livraison</strong><a href="#"> (voir tous les modes)</a><br/>
-                                            + @productInfo.buybox.formattedShippingAmount € (frais de port)</p>
-                                            <a class="btn btn-danger btn-block add-to-cart-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Ajouter au panier</a><br/><br/>
-                                            <p><strong>Ou retrait en boutique</strong><a href="#"> (voir tous les horaires)</a></p>
-                                            <a class="btn btn-danger btn-block pick-up-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Retrait en boutique</a>
-                                        </div>
-                                    </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="advert-price">
+                                    <p class="price">@productInfo.buybox.formattedSalePrice
+                                      € <span style="font-size: 17px">(@productInfo.buybox.state)</span></p>
+                                    <p class="xcb">ou 3 x <span>68,33 €</span> par carte bancaire<br/>
+                                      ou 5 x <span>42,58 €</span> avec 1euro.com</p>
+                                    <span class="super-points" style="background-image: url( @routes.Assets.at("images/rsp.png") ) ;">@productInfo.buybox.rspMinimumAmount
+                                      Super Points</span> à cumuler
+                                  </div>
+                                  <div class="advert-seller comment">
+                                    <img src="@routes.Assets.at("images/avatars/Loki.png")" />
+                                    <p>" @productInfo.buybox.sellerComment "</p>
+                                    <a href="">Négocier le prix</a> - <a href="">Voir la boutique du vendeur</a>
+                                  </div>
                                 </div>
+                                <div class="col-md-6">
+                                  <div class="advert-shipping">
+                                    <p><strong>En livraison</strong> <a href="#"> (voir tous les modes)</a> <br/>
+                                      + @productInfo.buybox.formattedShippingAmount € (frais de port)</p>
+                                    <a class="btn btn-danger btn-block add-to-cart-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                                      Ajouter au panier</a> <br/> <br/>
+                                    <p><strong>Ou retrait en boutique</strong> <a href="#"> (voir tous les horaires)</a></p>
+                                    <a class="btn btn-danger btn-block pick-up-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                      Retrait en boutique</a>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
+                        }
                             <div role="tabpanel" class="tab-pane fade" id="marketplace">
                                 <div class="row">
                                     @for((advert, index) <- productInfo.adverts.zipWithIndex) {

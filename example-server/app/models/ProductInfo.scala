@@ -27,7 +27,7 @@ case class ProductInfo(
                         productDetailTitle: String,
                         description: Option[String],
                         images: List[Images],
-                        rspMinimumAmount: Double
+                        rspMinimumAmount: Option[Double]
                       ){
   val dfs = new DecimalFormatSymbols(Locale.FRANCE);
   dfs.setGroupingSeparator(' ');
