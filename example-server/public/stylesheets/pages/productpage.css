@@ -1,0 +1,170 @@
+/* Global */
+#product-page hr {
+    border-top: 1px solid #DDD;
+}
+#product-page {
+    margin-bottom: 500px;
+    margin-top: 30px;
+}
+#product-page h1 {
+    font-size: 28px;
+    color: #666;
+    float: left;
+}
+#product-page .starsbox {
+    float: left;
+    margin: 25px 0 0 20px;
+}
+
+/* Product info */
+#product-page .product-info .main-image {
+    max-width: 400px;
+    margin: 0 auto;
+}
+#product-page .product-info {
+    max-width: 500px;
+    margin: 0 auto;
+}
+#product-page .product-info .label {
+    color: black;
+    font-size: inherit;
+    color: #444;
+}
+#product-page .product-info .other-pictures {
+    text-align: center;
+    margin-top: 10px;
+}
+#product-page .product-info .other-pictures > div {
+    padding: 4px;
+    width: 80px;
+    height: 80px;
+    margin: 0 5px;
+    display: inline-block;
+    border: solid 1px #DDD;
+    line-height: 70px;
+    cursor: pointer;
+}
+#product-page .product-info .other-pictures > div img {
+    width: 100%;
+    vertical-align: middle;
+}
+#product-page .product-info .other-pictures > div.active {
+    border: solid 1px #AAA;
+}
+#product-page .product-info .actions {
+    text-align: center;
+    margin: 20px auto;
+}
+#product-page .product-info .actions button {
+    padding: 9px 22px;
+    margin: 0 5px;
+}
+#product-page .product-info .description {
+    line-height: 23px;
+}
+
+/* Product adverts */
+#product-page .product-adverts {
+    margin-top: 10px;
+}
+#product-page .product-adverts .tab-content {
+    width: 100%;
+    min-height: 500px;
+    background: #eaedf2;
+    border: none;
+}
+#product-page .product-adverts .nav-tabs .price {
+    color: #bf0000;
+    font-size: 17px;
+    font-weight: bold;
+}
+#product-page .product-adverts .nav > li > a {
+    width: 260px;
+    text-align: center;
+    border: none;
+}
+#product-page .product-adverts .nav-tabs > li.active > a {
+    background: #eaedf2;
+}
+#product-page .product-adverts .vendre > a {
+    padding: 14px 50px !important;
+    background: #f90;
+    color: white;
+    margin-top: 15px;
+}
+#product-page .product-adverts .vendre .dropdown-menu {
+    width: 260px;
+}
+#product-page .product-adverts .advert-price {
+    background: white;
+    margin: 40px 10px 0 40px;
+    min-height: 200px;
+    padding: 30px;
+}
+#product-page .product-adverts .advert-shipping {
+    background: white;
+    margin: 40px 40px 0 10px;
+    min-height: 200px;
+    padding: 30px;
+}
+#product-page .product-adverts .advert-price .price {
+    font-size: 35px;
+    color: #bf0000;
+    font-weight: bold;
+}
+#product-page .product-adverts .advert-price .xcb span {
+    color: #bf0000;
+}
+#product-page .super-points {
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    word-wrap: break-word;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 0 0 25px;
+    font-weight: 700;
+    color: #C0262E;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+#product-page .product-adverts .advert-seller {
+    background: white;
+    margin: 10px 10px 0 40px;
+    padding: 30px;
+}
+#product-page .product-adverts .comment p {
+    font-style: italic;
+    color: grey;
+}
+#product-page .product-adverts .comment img {
+    float: left;
+    margin: 0 10px 5px 0;
+}
+#product-page .product-adverts .advert-shipping .add-to-cart-button {
+    max-width: 310px;
+}
+#product-page .product-adverts .advert-shipping .pick-up-button {
+    background: white !important;
+    border-width: 2px;
+    max-width: 310px;
+    color: #bf0000
+}
+
+/* Marketplace */
+#product-page .product-adverts #marketplace .advert {
+     background: white;
+     margin: 14px 30px;
+padding: 23px 0;
+}
+#product-page .product-adverts #marketplace .price {
+    font-weight: bold;
+    font-size: 25px;
+}
+#product-page .product-adverts #marketplace .xcb {
+    font-size: 12px;
+}
+.redRakuten {
+    color: #bf0000;
+}
