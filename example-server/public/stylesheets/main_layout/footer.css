@@ -118,16 +118,25 @@
     #footer .container-fluid {
         max-width:1060px;
     }
+    #retour_haut_page button {
+        max-width:1060px;
+    }
 }
 /* MD [max] */
 @media (max-width: 991px) {
     #footer .container-fluid {
         max-width:980px;
     }
+    #retour_haut_page button {
+        max-width:980px;
+    }
 }
 /* Between SM & MD [max] */
 @media (max-width: 889px) {
     #footer .container-fluid {
+        max-width:870px;
+    }
+    #retour_haut_page button {
         max-width:870px;
     }
 }
@@ -139,3 +148,4 @@
         font-size:1.5em;
     }
 }
+
