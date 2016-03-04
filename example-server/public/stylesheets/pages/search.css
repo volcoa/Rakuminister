@@ -2,6 +2,10 @@
     text-decoration: line-through !important;
 }
 
+#main-nav-categories {
+    padding:0;
+}
+
 
 .productbox {
 
