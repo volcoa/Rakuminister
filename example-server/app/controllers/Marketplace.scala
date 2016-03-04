@@ -79,6 +79,11 @@ object Marketplace extends Controller {
             val splittedCattegories = category.split("_")
             if(splittedCattegories.size > 1){
               navigationResult.formattedCategory = splittedCattegories(splittedCattegories.size - 1).replaceAll("-", " ").toLowerCase.capitalize
+              var previousCategoryUrl = splittedCattegories(0)
+              for(cat <- 2 until splittedCattegories.size){
+                previousCategoryUrl += "_" + splittedCattegories(cat-1)
+              }
+              navigationResult.removeLastCategoryUrl = previousCategoryUrl
             }else{
               navigationResult.formattedCategory = splittedCattegories(0).replaceAll("-", " ").toLowerCase.capitalize
             }

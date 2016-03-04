@@ -24,6 +24,7 @@ case class NavigationResult(
   var isSearch = false
   var isLocalSearch = false
   var formattedCategory = ""
+  var removeLastCategoryUrl = ""
 }
 object NavigationResult {
   implicit val productJsonFormat = Json.format[Product]

@@ -1,4 +1,6 @@
-
+ a.deleteFilter:hover {
+    text-decoration: line-through !important;
+}
 
 
 .productbox {
