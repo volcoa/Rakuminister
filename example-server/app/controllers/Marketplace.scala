@@ -42,6 +42,7 @@ object Marketplace extends Controller {
     }
   }
 
+  // URI : "/s/:keyword..."
   def nav(keyword: String, category: String, pageNumber: Int, advertType: String, ajax: Boolean) = Action.async { implicit request =>
     PMWebServices.navigationWS(keyword, pageNumber, advertType, category)
       .map(

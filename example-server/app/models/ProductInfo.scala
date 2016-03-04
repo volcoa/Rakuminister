@@ -1,7 +1,7 @@
 package models
 
-import java.text.{DecimalFormatSymbols, DecimalFormat}
-import java.util.{Locale, Currency}
+import java.text.{DecimalFormat, DecimalFormatSymbols}
+import java.util.Locale
 
 import play.api.libs.json.Json
 
@@ -10,6 +10,7 @@ case class ProductInfo(
                         id: Double,
                         urlName: String,
                         adverts: List[Advert],
+                        bestOffers: Option[Map[String, BestOffers]],
                         bestPrice: Double,
                         newBestPrice: Double,
                         usedBestPrice: Double,
@@ -36,6 +37,14 @@ case class ProductInfo(
   val formattedUsedBestPrice = formatter.format(usedBestPrice)
   val formattedCollectibleBestPrice = formatter.format(collectibleBestPrice)
 
+  var buybox: Advert = null;
+  if(bestOffers.isDefined) {
+    for (bestOffer <- bestOffers.get.values) {
+      if (bestOffer.isBuybox) {
+        buybox = bestOffer.adverts(0)
+      }
+    }
+  }
 }
 
 object ProductInfo {
@@ -47,6 +56,7 @@ object ProductInfo {
 
   implicit val sellerReads = Json.format[Seller]
   implicit val advertReads = Json.format[Advert]
+  implicit val bestOffersReads = Json.format[BestOffers]
 
   implicit val authorReads = Json.format[Author]
   implicit val reviewReads = Json.format[Review]
@@ -119,13 +129,21 @@ case class Author(
 case class Images(
                    imagesUrls: ImagesUrls,
                    id: Double
-                 )
+                 ) {
+  var fullSizeUrl: String = null
+  for(entry <- imagesUrls.entry) {
+    if (entry.size.equals("ORIGINAL")){
+      fullSizeUrl = entry.url
+    }
+  }
+}
 
 case class ImagesUrls(
                        entry: List[Entry]
                      )
 
 case class Entry(
+                  //"SMALL" "MEDIUM" "LARGE" "ORIGINAL"
                   size: String,
                   url: String
                 )
@@ -134,4 +152,10 @@ case class Category(
                      label: String,
                      url: String,
                      children: List[Category]
+)
+
+case class BestOffers(
+                    isBuybox: Boolean,
+                    score: Double,
+                    adverts: List[Advert]
 )
