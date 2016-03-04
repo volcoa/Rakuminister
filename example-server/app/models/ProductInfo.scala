@@ -49,7 +49,6 @@ case class ProductInfo(
 
 object ProductInfo {
 
-
   implicit val entryReads = Json.format[Entry]
   implicit val imagesUrlsReads = Json.format[ImagesUrls]
   implicit val imagesReads = Json.format[Images]
@@ -75,7 +74,7 @@ case class Advert(
                    //                     availableShippingTypes: List[AvailableShippingTypes],
                    isPickupAllowed: Boolean,
                    isAdvertInCircleRange: Boolean,
-//                   quality: String,
+                   quality: String,
                    //                     type: String,
                    images: List[Images],
                    rspMinimumAmount: Option[Double]
@@ -85,6 +84,9 @@ case class Advert(
   val formatter = new DecimalFormat("#,##0.00", dfs);
   val formattedSalePrice = formatter.format(salePrice)
   val formattedShippingAmount = formatter.format(shippingAmount)
+
+  var state: String = AdvertQuality.map.getOrElse(quality, "")
+
 }
 
   case class Seller(
@@ -158,3 +160,13 @@ case class BestOffers(
                     score: Double,
                     adverts: List[Advert]
 )
+
+object AdvertQuality {
+  var map: Map[String, String] = Map(
+  "NEW" -> "Neuf",
+  "LIKE_NEW" -> "Comme Neuf",
+  "VERY_GOOD" -> "Très bon état",
+  "GOOD" -> "Bon état",
+  "ACCEPTABLE" -> "Etat Correct",
+  "OUT_OF_ORDER" -> "Hors Service")
+}
