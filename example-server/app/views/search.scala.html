@@ -4,95 +4,103 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/pages/search.css")" />
 }
 @content = {
-
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-3">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <div>
-                        <a class="navbar-brand" href="#">Filtrer par catégories</a>
-                    </div>
-                    <button type="button" class="navbar-toggle collapsed"
+<br/>
+    @if(navigationResult.categories.length > 0){
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <div>
+                                <span class="navbar-brand">Filtrer par catégories</span>
+                            </div>
+                            <button type="button" class="navbar-toggle collapsed"
                             data-toggle="collapse" data-target="#main-nav-categories" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse sidebar" id="main-nav-categories">
-                    <ul class="nav navbar-nav nav-sidebar">
-                        <li><a href="#">Livres et BD</a></li>
-                        <li><a href="#">Musique et CD</a></li>
-                        <li><a href="#">DVD, Blu-Ray et VOD</a></li>
-                        <li><a href="#">Jeux vidéo et consoles</a></li>
-                        <li><a href="#">Téléphonie et tablettes</a></li>
-                        <li><a href="#">Informatique et logiciels</a></li>
-                        <li><a href="#">Image et son</a></li>
-                        <li><a href="#">Maison, Electro et Brico</a></li>
-                        <li><a href="#">Jardin et Animalerie</a></li>
-                        <li><a href="#">Sports et loisirs</a></li>
-                        <li><a href="#">Mode et beauté</a></li>
-                        <li><a href="#">Jouets et enfant</a></li>
-                        <li><a href="#">Art et collection</a></li>
-                    </ul>
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse sidebar" id="main-nav-categories">
+                            <ul class="nav navbar-nav nav-sidebar">
+                                @for(cat <- navigationResult.categories){
+                                    @if(navigationResult.isSearch || navigationResult.isLocalSearch){
+                                        <li><a href="/s/@keyword?nav=@cat.name">@cat.label (@cat.productsCount)</a></li>
+                                    }else{
+                                        <li><a href="/nav/@cat.name">@cat.label (@cat.productsCount)</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!-- /.blog-sidebar -->
+    }
+    @*    @if(navigationResult.filters.length > 0){
+    <ul class="sidebar-nav">
+    <li class="sidebar-brand">Filtres</li>
+    @for(filter <- navigationResult.filters){
+    @if(navigationResult.isSearch || navigationResult.isLocalSearch){
+    <li><a href="/s/@keyword?nav=@filter.name">@filter.label (@filter.productsCount)</a></li>
+    }else{
+    <li><a href="/nav/@filter.name">@filter.label (@filter.productsCount)</a></li>
+    }
+    }
+    </ul>
+    }*@
+
+
+        <div class="col-xs-12 col-sm-12 col-md-9">
+        @if(navigationResult.products.size == 0){
+            <div class="well center-block text-center">
+                @if(navigationResult.isLocalSearch){
+                    <h1>Pas de résultats pour <br/>« <em><a href="/s/@keyword">@keyword</a></em> » dans la catégorie <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em></h1>
+                }
+                @if(navigationResult.isNav){
+                    <h1>Pas de résultats dans la catégorie  <br/>« <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em> »</h1>
+                }
+                @if(navigationResult.isSearch){
+                    <h1>Pas de résultats pour <br/>« <em>@keyword</em> »</h1>
+                }
+
+            </div>
+        }else{
+
+            <div class="well center-block text-center">
+                @if(navigationResult.isLocalSearch){
+                    <h1>Résultats de recherche pour <br/><span class="unbrokable-space">« </span><em><a href="/s/@keyword">@keyword</a></em><span class="unbrokable-space"> »</span> dans <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em></h1>
+                }
+                @if(navigationResult.isNav){
+                    <h1>Résultats dans la catégorie <br/><span class="unbrokable-space">« </span><em><a href="/nav/@category">@navigationResult.formattedCategory</a></em><span class="unbrokable-space"> »</span></h1>
+                }
+                @if(navigationResult.isSearch){
+                    <h1>Résultats de recherche pour <br/><span class="unbrokable-space">« </span><em><a href="/s/@keyword">@keyword</a></em><span class="unbrokable-space"> »</span></h1>
+                }
+
+                <div id="select-advtype-buttons" class="btn-group" role="group" aria-label="...">
+
+                    <button id="select-advtype-button_ALL" type="button" class="btn btn-default active" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'ALL')">Tout</button>
+
+                    @if(navigationResult.hasNewProducts){
+                        <button id="select-advtype-button_NEW" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'NEW')">Neuf</button>
+                    }else{
+                        <button type="button" disabled="disabled" class="btn btn-default">Neuf</button>
+                    }
+
+                    @if(navigationResult.hasUsedProducts){
+                        <button id="select-advtype-button_USED" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'USED')">Occasion</button>
+                    }else{
+                        <button type="button" disabled="disabled" class="btn btn-default">Occasion</button>
+                    }
                 </div>
             </div>
-        </nav>
-    </div><!-- /.blog-sidebar -->
 
 
-    <div class="col-xs-12 col-sm-12 col-md-9">
-            @if(navigationResult.products.size == 0){
-                <div class="well center-block text-center">
-                    @if(navigationResult.isLocalSearch){
-                        <h1>Pas de résultats pour <br/>« <em>@keyword</em> » dans la catégorie <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em></h1>
-                    }
-                    @if(navigationResult.isNav){
-                        <h1>Pas de résultats dans la catégorie  <br/>« <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em> »</h1>
-                    }
-                    @if(navigationResult.isSearch){
-                        <h1>Pas de résultats pour <br/>« <em>@keyword</em> »</h1>
-                    }
-
-                </div>
-            }else{
-
-                <div class="well center-block text-center">
-                    @if(navigationResult.isLocalSearch){
-                        <h1>Résultats de recherche pour <br/><span class="unbrokable-space">« </span><em>@keyword</em><span class="unbrokable-space"> »</span> dans <em><a href="/nav/@category">@navigationResult.formattedCategory</a></em></h1>
-                    }
-                    @if(navigationResult.isNav){
-                        <h1>Résultats dans la catégorie <br/><span class="unbrokable-space">« </span><em><a href="/nav/@category">@navigationResult.formattedCategory</a></em><span class="unbrokable-space"> »</span></h1>
-                    }
-                    @if(navigationResult.isSearch){
-                        <h1>Résultats de recherche pour <br/><span class="unbrokable-space">« </span><em>@keyword</em><span class="unbrokable-space"> »</span></h1>
-                    }
-
-                    <div id="select-advtype-buttons" class="btn-group" role="group" aria-label="...">
-
-                        <button id="select-advtype-button_ALL" type="button" class="btn btn-default active" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'ALL')">Tout</button>
-
-                        @if(navigationResult.hasNewProducts){
-                            <button id="select-advtype-button_NEW" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'NEW')">Neuf</button>
-                        }else{
-                            <button type="button" disabled="disabled" class="btn btn-default">Neuf</button>
-                        }
-
-                        @if(navigationResult.hasUsedProducts){
-                            <button id="select-advtype-button_USED" type="button" class="btn btn-default" onclick="example.NavigationAjaxJS().getProductsByAdvertType('@keyword', '@category', 'USED')">Occasion</button>
-                        }else{
-                            <button type="button" disabled="disabled" class="btn btn-default">Occasion</button>
-                        }
-                    </div>
-                </div>
-
-
-                <div id="productListing" class="content-fluid">
-                    @tags.productListing(keyword, category, navigationResult)
-                </div>
-            }
+            <div id="productListing" class="content-fluid">
+            @tags.productListing(keyword, category, navigationResult)
+            </div>
+        }
         </div>
     </div>
 }

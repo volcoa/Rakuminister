@@ -42,7 +42,6 @@ object Marketplace extends Controller {
     }
   }
 
-  // URI : "/s/:keyword..."
   def nav(keyword: String, category: String, pageNumber: Int, advertType: String, ajax: Boolean) = Action.async { implicit request =>
     PMWebServices.navigationWS(keyword, pageNumber, advertType, category)
       .map(
@@ -79,9 +78,9 @@ object Marketplace extends Controller {
             navigationResult.isNav = category != "" && keyword == ""
             val splittedCattegories = category.split("_")
             if(splittedCattegories.size > 1){
-              navigationResult.formattedCategory = splittedCattegories(splittedCattegories.size - 1).toLowerCase.capitalize
+              navigationResult.formattedCategory = splittedCattegories(splittedCattegories.size - 1).replaceAll("-", " ").toLowerCase.capitalize
             }else{
-              navigationResult.formattedCategory = splittedCattegories(0).toLowerCase.capitalize
+              navigationResult.formattedCategory = splittedCattegories(0).replaceAll("-", " ").toLowerCase.capitalize
             }
 
             if(ajax) {

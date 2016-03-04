@@ -152,11 +152,6 @@ case class Entry(
                   url: String
                 )
 
-case class Category(
-                     label: String,
-                     url: String,
-                     children: List[Category]
-)
 
 case class BestOffers(
                     isBuybox: Boolean,
