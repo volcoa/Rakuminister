@@ -102,7 +102,7 @@
                                                 <span class="super-points" style="background-image: url(@routes.Assets.at("images/rsp.png"));">@advert.rspMinimumAmount Super Points</span> à cumuler
                                             </div>
                                             <div class="col-md-4 comment">
-                                                <img src="@routes.Assets.at("images/avatars/Loki.png")" />
+                                                <img src="@routes.Assets.at("images/avatars/" + Avatar.map.get(index % 5).get)" />
                                                 <p class="comment">" @advert.sellerComment "</p>
                                                 <ul class="images">
                                                     @for(i <- 0 until Math.min(advert.images.size, 5)) {

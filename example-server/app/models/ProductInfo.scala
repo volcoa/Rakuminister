@@ -170,3 +170,14 @@ object AdvertQuality {
   "ACCEPTABLE" -> "Etat Correct",
   "OUT_OF_ORDER" -> "Hors Service")
 }
+object Avatar {
+  var map: Map[Int, String] = Map(
+    0 -> "CaptainAmerica.png",
+    1 -> "Loki.png",
+    2 -> "BlackWidow.png",
+    3 -> "IronMan.png",
+    4 -> "Thor.png",
+    5 -> "WarMachine.png",
+    6 -> "NickFury.png",
+    7 -> "Hulk.png")
+}
