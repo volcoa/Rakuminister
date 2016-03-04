@@ -1,7 +1,5 @@
 package controllers
 
-import java.util.concurrent.TimeoutException
-
 import models.{NavigationResult, ProductInfo}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits._
@@ -14,7 +12,7 @@ import scala.xml.Elem
 object Marketplace extends Controller {
 
   // URI : "/"
-  def index = Action.async { implicit request =>
+  def index() = Action.async { implicit request =>
 
     PMWebServices.cmsWS()
       .map(
@@ -28,19 +26,19 @@ object Marketplace extends Controller {
 
           } else {
             error = true
-            Logger.logger.error("[" + request.uri + "]" + " - Jahia Call Error")
+            Logger.error("[" + request.uri + "]" + " - " + result.status + " - Jahia Call Error")
           }
 
           if (error) {
-            Ok(views.html.home(("")))
+            InternalServerError(views.html.home(""))
           } else {
             Ok(views.html.home((jahiaRepsonseAsXml \\ "body").toString()))
           }
         }
       ).recover {
-      case _ =>
-        Logger.logger.error("An error occured")
-        Ok(views.html.home(("")))
+      case e =>
+        Logger.error("[" + request.uri + "]" + " - Jahia Call Error", e)
+        InternalServerError(views.html.home(""))
     }
   }
 
@@ -60,7 +58,7 @@ object Marketplace extends Controller {
                 // Binding error
                 error = true
                 e.errors.foreach(error => errorMessage += " - " + error._1)
-                Logger.logger.error("[" + request.uri + "]" + " - Binding error on " + errorMessage)
+                Logger.error("[" + request.uri + "]" + " - Binding error on " + errorMessage)
                 null
               }
             }
@@ -68,11 +66,11 @@ object Marketplace extends Controller {
           // WS ERROR
           else {
             error = true
-            Logger.logger.error("[" + request.uri + "]" + " - " + (result.json \ "code").get + " : " + (result.json \ "message").get)
+            Logger.error("[" + request.uri + "]" + " - Navigation call Error - " + (result.json \ "code").get + " : " + (result.json \ "message").get)
           }
 
           if(error) {
-            Ok(views.html.oups(errorMessage))
+            InternalServerError(views.html.oups(errorMessage))
           }
           else {
             navigationResult.isLocalSearch = category != "" && keyword != ""
@@ -94,9 +92,9 @@ object Marketplace extends Controller {
           }
         }
       ).recover {
-      case _ =>
-        Logger.logger.error("An error occured")
-        Ok(views.html.oups("Les serveurs de PriceMinister sont en cours de maintenance."))
+      case e =>
+        Logger.error("[" + request.uri + "]" + " - Navigation call Error", e)
+        InternalServerError(views.html.oups("Les serveurs de PriceMinister sont en cours de maintenance."))
     };
   }
 
@@ -118,27 +116,27 @@ object Marketplace extends Controller {
                 // Binding error
                 error = true
                 e.errors.foreach(error => errorMessage += " - " + error._1)
-                Logger.logger.error("[" + request.uri + "]" + " - Binding error on " + errorMessage)
+                Logger.error("[" + request.uri + "]" + " - Binding error on " + errorMessage)
                 null
               }
             }
           // WS ERROR
           } else {
             error = true
-            Logger.logger.error("[" + request.uri + "]" + " - " + (result.json \ "code").get + " : " + (result.json \ "message").get)
+            Logger.error("[" + request.uri + "]" + " - " + (result.json \ "code").get + " : " + (result.json \ "message").get)
             errorMessage += "Produit introuvable"
           }
 
           if(error) {
-            Ok(views.html.oups(errorMessage))
+            InternalServerError(views.html.oups(errorMessage))
           } else {
             Ok(views.html.product(productInfo))
           }
         }
       ).recover {
-        case _ =>
-          Logger.logger.error("An error occured")
-          Ok(views.html.oups("Les serveurs de PriceMinister sont en cours de maintenance."))
+        case e =>
+          Logger.error("[" + request.uri + "] - Not reachable product", e)
+          InternalServerError(views.html.oups("Les serveurs de PriceMinister sont en cours de maintenance."))
       }
   }
 
@@ -152,14 +150,14 @@ object Marketplace extends Controller {
             Ok(result.json.toString())
           }
           else {
-            Logger.logger.error("[" + request.uri + "]" + " - " + (result.json \ "code") + " : " + (result.json \ "message"))
-            Ok("")
+            Logger.error("[" + request.uri + "]" + " - " + (result.json \ "code") + " : " + (result.json \ "message"))
+            InternalServerError("")
           }
         }
       ).recover {
-      case _ =>
-        Logger.logger.error("An error occured")
-        Ok("")
+      case e =>
+        Logger.error("[" + request.uri + "]", e)
+        InternalServerError("")
     };
   }
 
