@@ -33,7 +33,7 @@
                             <button type="button" class="btn btn-default">Partage <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
                         </a>
                     </div>
-                    <div class="description">
+                    <div class="description visible-lg visible-md">
                         @if(productInfo.description.isDefined) {
                             <p>@Html(productInfo.description.get)</p>
                         }
@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-8">
                 <h1 >@productInfo.headline</h1>
-                <div class="starsbox">
+                <div class="starsbox visible-lg visible-md">
                 @for(incr <- 1 to 5){
                     @if(productInfo.reviewsAverageNote >= incr) {
                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -60,7 +60,7 @@
                             </li>
                             <li role="presentation">
                                 <a href="#marketplace" aria-controls="profile" role="tab" data-toggle="tab">Autres vendeurs<br/>dès <span class="price">458€</span></a></li>
-                            <li role="presentation" class="vendre" style="float: right">
+                            <li role="presentation" class="vendre visible-lg visible-md" style="float: right">
                                 <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">Vendre<span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents"> <li><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">Ce produit</a></li> <li><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">Un autre produit</a></li> </ul>
                             </li>
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="advert-price">
-                                            <p class="price">@productInfo.buybox.formattedSalePrice €</p>
+                                            <p class="price">@productInfo.buybox.formattedSalePrice € <span style="font-size: 17px">(@productInfo.buybox.state)</span></p>
                                             <p class="xcb">ou 3 x <span>68,33 €</span> par carte bancaire<br/>
                                             ou 5 x <span>42,58 €</span> avec 1euro.com</p>
                                             <span class="super-points" style="background-image: url(@routes.Assets.at("images/rsp.png"));">@productInfo.buybox.rspMinimumAmount Super Points</span> à cumuler
@@ -103,13 +103,18 @@
                                             </div>
                                             <div class="col-md-4 comment">
                                                 <img src="@routes.Assets.at("images/avatars/Loki.png")" />
-                                                <p class="comment">" @productInfo.buybox.sellerComment "</p>
+                                                <p class="comment">" @advert.sellerComment "</p>
+                                                <ul class="images">
+                                                    @for(i <- 0 until Math.min(advert.images.size, 5)) {
+                                                        <li><img width="100%" src="@advert.images(i).smallSizeUrl"></li>
+                                                    }
+                                                </ul>
                                                 <a href="">Négocier le prix</a> - <a href="">Voir la boutique du vendeur</a>
                                             </div>
                                             <div class="col-md-4">
                                                 <p><strong>En livraison</strong><a href="#"> (voir tous les modes)</a><br/>
                                                     + @advert.formattedShippingAmount € (frais de port)</p>
-                                                <a class="btn btn-danger btn-block add-to-cart-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Ajouter au panier</a><br/><br/>
+                                                <a style="width: 220px;" class="btn btn-danger btn-block add-to-cart-button btn-lg" href="#" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Ajouter au panier</a>
                                             </div>
                                         </div>
                                     }
@@ -120,116 +125,6 @@
                 </div>
             </div>
         </div>
-
-
-  <div class="row">
-    <div class="col-md-5">
-
-      <div>
-        <span class="text-muted">@productInfo.aisle</span>
-      </div>
-
-
-    </div>
-    <div class="col-md-7">
-
-    </div>
-  </div>
-
-
-
-@for((review, index) <- productInfo.reviews.zipWithIndex) {
-  @review.note
-}
-  <ul>
-
-    <li>@productInfo.aisle</li>
-    <li>@productInfo.id</li>
-    <li>@productInfo.urlName</li>
-    <li>@productInfo.formattedBestPrice</li>
-    <li>@productInfo.formattedNewBestPrice</li>
-    <li>@productInfo.formattedUsedBestPrice</li>
-    <li>@productInfo.formattedCollectibleBestPrice</li>
-    <li>@productInfo.collapseBestPrice</li>
-    <li>@productInfo.advertsCount</li>
-    <li>@productInfo.advertsNewCount</li>
-    <li>@productInfo.advertsUsedCount</li>
-    <li>@productInfo.advertsCollectibleCount</li>
-    <li>@productInfo.headline</li>
-    <li>@productInfo.reviewsAverageNote</li>
-    <li>@productInfo.reviews</li>
-    <li>@productInfo.productDetailTitle</li>
-    <li>@productInfo.rspMinimumAmount</li>
-  </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <img src="@productInfo.images(0).imagesUrls.entry(1).url" class="img-responsive"/>
-        @*<ul>*@
-          @*for((image) <- productInfo.images) {*@
-            @*<li><img src="@image.imagesUrls.entry(3).url"></li>*@
-          @*}*@
-        @*</ul>*@
-      </div>
-      <div class="col-md-6">
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-  @*Adverts list*@
-  <div class="content-fluid">
-    @for((advert, index) <- productInfo.adverts.zipWithIndex) {
-      <div class="row">
-        <div class="col-xs-2">
-          @advert.formattedSalePrice - @advert.formattedShippingAmount
-        </div>
-        <div class="col-xs-6">
-          @advert.sellerComment
-          <ul>
-            @for((image) <- advert.images) {
-              <li><img src="@image.imagesUrls.entry(1).url" class="img-responsive"></li>
-            }
-          </ul>
-        </div>
-        <div class="col-xs-2">
-
-        </div>
-        <div class="col-xs-2">
-          <a href="#" class="btn btn-danger btn-sm btn-block add-to-cart-button" role="button">Ajouter au <span class="glyphicon glyphicon-shopping-cart"></span></a>
-        </div>
-
-      </div>
-    }
-  </div>
-
-  @* Fiche technique *@
-  @if(productInfo.description.isDefined) {
-  <p>
-    @Html(productInfo.description.get)
-  </p>
-  }
 }
 
 @templates.layout("Rakuten France", content = content, header = header)

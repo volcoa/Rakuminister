@@ -3,7 +3,6 @@
     border-top: 1px solid #DDD;
 }
 #product-page {
-    margin-bottom: 500px;
     margin-top: 30px;
 }
 #product-page h1 {
@@ -167,4 +166,48 @@ padding: 23px 0;
 }
 .redRakuten {
     color: #bf0000;
+}
+
+/* Advert */
+#product-page .advert ul.images {
+    padding: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+#product-page .advert .images li {
+    list-style: none;
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin: 0 5px;
+}
+
+@media screen and (max-width: 968px) {
+    #product-page .product-adverts #marketplace .col-md-4 {
+        margin: 30px 0 0 0;
+    }
+    #product-page .product-adverts #marketplace .col-md-4:first-child {
+        margin-top: 0;
+    }
+    #product-page .advert-price,  #product-page .advert-seller,  #product-page .advert-shipping {
+        margin: 0 14px !important;
+    }
+    #product-page .advert-price:first-child {
+        margin-top: 14px !important;
+    }
+    .nav-tabs > li {
+        width: 100%;
+    }
+    #product-page .product-adverts .nav > li > a {
+        width: 100%;
+    }
+    li[role="presentation"]:not(active) {
+        border: solid 1px #eaedf2;;
+    }
+    #product-page .product-info .actions button {
+        padding: 9px 8px;
+    }
+    .price span {
+        display: block;
+    }
 }
